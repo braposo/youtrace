@@ -1,0 +1,12 @@
+<h1>Editing trace</h1>
+
+<% form_for(@trace) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @trace %> |
+<%= link_to 'Back', traces_path %>

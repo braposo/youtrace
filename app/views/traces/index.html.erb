@@ -1,0 +1,18 @@
+<h1>Listing traces</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% for trace in @traces %>
+  <tr>
+    <td><%= link_to 'Show', trace %></td>
+    <td><%= link_to 'Edit', edit_trace_path(trace) %></td>
+    <td><%= link_to 'Destroy', trace, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New trace', new_trace_path %>
