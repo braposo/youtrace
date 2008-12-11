@@ -64,4 +64,7 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+  config.active_record.observers = :user_observer
 end
+
+Mime::Type.register 'application/vnd.google-earth.kml+xml', :kml

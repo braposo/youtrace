@@ -3,3 +3,6 @@ tmp/*
 config/database.yml
 .DS_Store
 db/*.sqlite3
+nbproject/*
+config/initializers/site_keys.rb
+coverage/*

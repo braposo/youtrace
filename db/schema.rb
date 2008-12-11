@@ -9,17 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081202222248) do
-
-  create_table "accounts", :force => true do |t|
-    t.string   "username"
-    t.string   "password"
-    t.string   "email"
-    t.integer  "status"
-    t.string   "code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20081202233503) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -27,6 +17,11 @@ ActiveRecord::Schema.define(:version => 20081202222248) do
     t.string   "photo"
     t.integer  "privacy"
     t.decimal  "traced"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "traces", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
