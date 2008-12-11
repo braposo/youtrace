@@ -1,0 +1,15 @@
+<h1>Login</h1>
+<div class="login box">
+  <% form_tag sessions_path do -%>
+    <%= label_tag 'username' %>
+    <%= text_field_tag 'login', @login %>
+        
+    <%= label_tag 'password' %>
+    <%= password_field_tag 'password', nil %>
+        
+    <%= label_tag 'remember_me', 'Remember me' %>
+    <%= check_box_tag 'remember_me', '1', @remember_me %>
+        
+    <div><%= submit_tag 'Log in', :class => 'button' %> or <%= link_to "recover your password", users_path -%></div>
+  <% end -%>
+</div>

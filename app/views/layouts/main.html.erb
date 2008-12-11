@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>YouTrace Social Platform</title>
+    <%= stylesheet_link_tag "main"  %>
+    <%= stylesheet_link_tag "reset-fonts-grids.css" %>
+  </head>
+  <body>
+    <div id="doc2" class="yui-t5">
+        <%= render :partial => "home/header" -%>
+        <div id="bd"> 
+          <%= flash_messages %>
+	    <div id="yui-main">
+                <div class="yui-b main">
+                  <div class="yui-g"> 
+                    <%= yield -%>
+                  </div> 
+                </div> 
+	    </div> 
+            <%= render :partial => "home/sidebar" -%> 
+	</div> 
+        <%= render :partial => "home/footer" -%>
+    </div>
+  </body>
+</html>

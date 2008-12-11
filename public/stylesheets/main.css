@@ -1,0 +1,42 @@
+/* 
+  light grey: #D5D8DD
+  grey: #989DA4
+  light blue: #5CA2BE
+  blue: #135487
+  dark blue: #2A4353
+*/
+
+html { font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif !important; border-top: 5px solid #2A4353; }
+#hd { margin: 20px 0; height:100px; }
+#ft { height: 20px; font-size: 10px; margin-top: 30px; text-align: center; }
+#error { color: #fff; padding: 5px 10px; background: #ff6666; margin-bottom: 5px;}
+#notice { color: #000; padding: 5px 10px; background: #8cad8c; margin-bottom: 5px;}
+
+#hd .box { color: #fff; padding: 5px 10px; background: #2A4353; border-bottom: 1px solid #5CA2BE }
+#hd .box a { color: #5CA2BE; }
+
+.main{  }
+.main h1 { color: #2A4353; font-family: Georgia,'Times New Roman',times,serif; font-size: 40px; margin-bottom: 5px;}
+
+.menu { margin-left: 20px; margin-top: 70px;}
+li.menu-item { display: inline; font-size: 14px;}
+li.menu-item .current { padding: 2px 15px; color: white; background: #5CA2BE; border-bottom: 2px solid #2A4353; }
+li.menu-item a:visited, li.menu-item a:link { text-decoration: none; color: #333; padding: 2px 15px; background: #D5D8DD; border-bottom: 2px solid #989DA4; }
+li.menu-item a:hover, li.menu-item a:active { color: white; background: #5CA2BE; border-bottom: 2px solid #2A4353; }
+
+.sidebar {  }
+.sidebar h1 { color: #fff; padding: 5px 10px; background: #2A4353; border-bottom: 1px solid #5CA2BE }
+.sidebar h1 a { color: #5CA2BE; }
+.main .box { padding: 5px 10px; margin: auto;}
+.main .login input { display: block; margin-bottom: 5px;}
+.main .login #remember_me { display: inline; }
+.main .login input.button { display: inline; background: #135487; color: #fff; padding: 2px 4px; border: none; margin-top: 15px;}
+.main .box label {  }
+
+.fl { float: left; }
+.fr { float: right; }
+.cf { clear: both; }
+
+a { color: #2A4353;}
+a:hover, a:active { text-decoration: none; }
+abbr { color: #135487; border-bottom: 1px dashed #000; }
