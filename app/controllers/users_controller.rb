@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
-  layout 'main'
+  layout 'logged', :except => ['new','create', 'activate', 'subscribe']
+  before_filter :login_required, :except => ['new','create', 'activate', 'subscribe']
+
   # render new.rhtml
   def new
     @user = User.new
+    render :layout => 'main'
   end
  
   def create
@@ -35,13 +38,82 @@ class UsersController < ApplicationController
     end
   end
   
-  def show
-    @user = User.find_by_login(params[:id])
-   
+  def show    
+    @user = active_user
+    add_breadcrumb active_user.login, user_path(@user)
+    add_breadcrumb "Dashboard"
+    
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.xml  { render :xml => @user.to_xml }
       format.kml { render :text => "lol" }
     end
+    
   end
+  
+  def network
+    @user = active_user
+    add_breadcrumb active_user.login, user_path(@user)
+    add_breadcrumb "Network"
+    
+    @subscriptions = @user.authorized_subscriptions
+    @pending = @user.pending_subscriptions
+    
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @subscriptions.to_xml }
+    end
+  end
+  
+  def traces
+    active_user
+    add_breadcrumb active_user.login, user_path(active_user)
+    add_breadcrumb "Traces"
+  end
+  
+  def info
+    @user = active_user
+    add_breadcrumb active_user.login, user_path(@user)
+    add_breadcrumb "Profile"
+    
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @user.to_xml }
+    end
+  end
+  
+  def prefs
+    add_breadcrumb active_user.login, user_path(active_user)
+    add_breadcrumb "Preferences"
+  end
+  
+  def subscribe
+    current_user.request_subscription(params[:sub_id])
+    flash[:notice] = "User #{params[:sub_id]} subscribed!"
+    redirect_back_or_default(user_path(current_user))
+  end
+  
+  def unsubscribe
+    current_user.remove_subscription(params[:sub_id])
+    flash[:notice] = "User #{params[:id]} deleted!"
+    redirect_back_or_default(user_network_path(current_user))
+  end
+  
+  def authorize
+    current_user.authorize_subscription(params[:sub_id])
+    flash[:notice] = "User #{params[:sub_id]} authorized!"
+    redirect_back_or_default(user_network_path(current_user))
+  end
+  
+  def pause
+    current_user.pause_subscription(params[:sub_id])
+    flash[:notice] = "User #{params[:sub_id]} has been paused!"
+    redirect_back_or_default(user_network_path(current_user))
+  end
+  
+  private 
+  def active_user
+      @active_user ||= User.find_by_login(params[:id]) unless @active_user == false
+   end
+  
 end

@@ -1,0 +1,13 @@
+<% if !@subscriptions.empty? -%>
+<h1>Subscriptions</h1>
+<% @subscriptions.each do |u| -%>
+   <li><%= link_to u.login, user_path(u) -%> <small>(<%= link_to "pause", user_pause_path(:sub_id => u) %> or <%= link_to 'unsubscribe', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small></li>
+<% end -%>
+<% end -%>
+
+<% if !@pending.empty? -%>
+<h1>Pending requests</h1>
+<% @pending.each do |u| -%>
+   <li><%= link_to u.login, user_path(u) -%> <small>(<%= link_to "confirm", user_authorize_path(:sub_id => u) %> or <%= link_to 'delete', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small></li>
+<% end -%>
+<% end -%>

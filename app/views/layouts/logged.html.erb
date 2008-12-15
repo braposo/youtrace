@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <%= stylesheet_link_tag "main"  %>
     <%= stylesheet_link_tag "reset-fonts-grids.css" %>
-	<% if action.action_name == "map" -%>
+    <% if controller.action_name == "map" -%>
     <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA3nav32DtbW5MFnDtJpeZZBRopN2rk1zMLE79IKq4tyYku6rrDBStxV7sgGMzdav5bgwGsZXhQ1W5UA"></script>
     <script type="text/javascript">
         google.load("maps", "2.x");
@@ -24,19 +24,27 @@
     </script>
 	<% end -%>
   </head>
-  <body onunload="GUnload()">
-    <div id="doc2" class="yui-t7">
+  <body>
+    <div id="doc3" class="yui-t1">
       <%= render :partial => "home/header" -%>
       <div id="bd"> 
-        <%= flash_messages -%>  
-        <div class="yui-ge main">
-          <div class="yui-u first">
-            <%= yield -%>
-          </div>
-          <div class="yui-u sidebar">
-            <%= render :partial => "home/sidebar" -%>
-          </div>
-        </div>   
+        <%= flash_messages -%>
+        <div id="yui-main">
+          <div class="yui-b">
+            <div class="yui-ge">
+              <div class="yui-u first main">
+                <%= render :partial => "home/tips" -%>
+                <%= yield -%>
+              </div>
+              <div class="yui-u sidebar">
+                <%= render :partial => "home/sidebar" -%>
+              </div>
+            </div> 
+          </div> 
+        </div> 
+        <div class="yui-b profile_menu">
+          <%= render :partial => "home/profile_menu" -%>
+        </div> 
       </div> 
       <%= render :partial => "home/footer" -%>
     </div>

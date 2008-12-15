@@ -1,0 +1,6 @@
+<% if !params[:id].nil? && logged_in? && current_user.login != params[:id] -%>
+  <div class="tips">You are viewing other user's profile. To return to your profile <%= link_to "click here", user_path(current_user) -%>.</div>
+<% end -%>
+<% if  controller.controller_name == "users" -%>
+  <div class="breadcrumbs"><%= breadcrumbs %></div>
+<% end -%>

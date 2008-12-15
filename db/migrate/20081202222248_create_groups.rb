@@ -4,8 +4,8 @@ class CreateGroups < ActiveRecord::Migration
       t.string :name
       t.text :description
       t.string :photo
-      t.integer :privacy
-      t.decimal :traced
+      t.integer :privacy,    :default => 0
+      t.decimal :traced,     :default => 0
 
       t.timestamps
     end

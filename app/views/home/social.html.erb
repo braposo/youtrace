@@ -1,2 +1,6 @@
-<h1>Social</h1>
-<p>Social content in here</p>
+<h1>Latest Users</h1>
+<ul>
+  <% @users.each do |u| %>
+    <li><%= link_to u.login, user_path(u) -%> <small><%=  time_ago_in_words u.activated_at -%></small></li>
+  <% end %>
+</ul>

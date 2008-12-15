@@ -1,0 +1,13 @@
+<ul class="menu">
+  <li class="menu-item first"><%= link_to_unless_current("Dashboard", user_path(params[:id]||current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+  <li class="menu-item"><%= link_to_unless_current("Network", user_network_path(params[:id]||current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+  <li class="menu-item"><%= link_to_unless_current("Traces", user_traces_path(params[:id]||current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+  <li class="menu-item"><%= link_to_unless_current("Info", user_info_path(params[:id]||current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+  <% if logged_in? -%>
+    <% if current_user.login == params[:id] || controller.controller_name != 'users' -%>
+      <li class="menu-item"><%= link_to_unless_current("Preferences", user_prefs_path(current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+    <% else -%>
+      <li class="menu-item"><%= link_to_unless_current("Back to my profile!", user_path(current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+    <% end -%>
+  <% end -%>
+</ul>

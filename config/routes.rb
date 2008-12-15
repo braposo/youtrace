@@ -1,8 +1,23 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :users, :sessions
+  
+  map.resource :sessions
   map.resources :traces
   map.resources :groups
-
+  
+  #User navigation
+  map.resources :users do |users|
+    users.home 'home', :controller => 'users', :action => 'home', :path_prefix => '/users/:id'
+    users.network 'network', :controller => 'users', :action => 'network', :path_prefix => '/users/:id'
+    users.traces 'traces', :controller => 'users', :action => 'traces', :path_prefix => '/users/:id'
+    users.info 'info', :controller => 'users', :action => 'info', :path_prefix => '/users/:id'
+    users.prefs 'prefs', :controller => 'users', :action => 'prefs', :path_prefix => '/users/:id'
+    #users.resources :subscriptions, :path_prefix => '/users/:user_id'
+    users.subscribe 'subscribe/:sub_id', :controller => 'users', :action => 'subscribe', :path_prefix => '/users/:id'
+    users.unsubscribe 'unsubscribe/:sub_id', :controller => 'users', :action => 'unsubscribe', :path_prefix => '/users/:id'
+    users.authorize 'authorize/:sub_id', :controller => 'users', :action => 'authorize', :path_prefix => '/users/:id'
+    users.pause 'pause/:sub_id', :controller => 'users', :action => 'pause', :path_prefix => '/users/:id'
+  end
+  
   map.root :controller => "home"
   
   #Main navigation
@@ -20,7 +35,11 @@ ActionController::Routing::Routes.draw do |map|
   #User navigation
   #map.user '/:user', :controller => 'users', :action => 'show'
   #map.connect '/:user.:format', :controller => 'users', :action => 'show'
-  #map.user_map '/:user/map', :controller => 'users', :action => 'map'
+#  map.user_home '/users/:id/home', :controller => 'users', :action => 'home'
+#  map.user_social '/users/:id/social', :controller => 'users', :action => 'social'
+#  map.user_traces '/users/:id/traces', :controller => 'users', :action => 'traces'
+#  map.user_info '/users/:id/info', :controller => 'users', :action => 'info'
+#  map.user_prefs '/users/:id/prefs', :controller => 'users', :action => 'prefs'
   
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'

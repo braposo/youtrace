@@ -1,0 +1,5 @@
+<% if @user.nil? -%>
+  <h1>User not found!</h1>
+<% else -%>
+  <h1><%= @user.login %> dashboard</h1>
+<%  end -%>
