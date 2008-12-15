@@ -57,7 +57,9 @@ class UsersController < ApplicationController
     add_breadcrumb "Network"
     
     @subscriptions = @user.authorized_subscriptions
-    @pending = @user.pending_subscriptions
+    @followers = @user.authorized_followers
+    @pending_reqs = @user.pending_requests
+    @pending_subs = @user.pending_subscriptions
     
     respond_to do |format|
       format.html
@@ -95,12 +97,12 @@ class UsersController < ApplicationController
   
   def unsubscribe
     current_user.remove_subscription(params[:sub_id])
-    flash[:notice] = "User #{params[:id]} deleted!"
+    flash[:notice] = "User #{params[:id]} unsubscribed!"
     redirect_back_or_default(user_network_path(current_user))
   end
   
   def authorize
-    current_user.authorize_subscription(params[:sub_id])
+    current_user.authorize_follower(params[:sub_id])
     flash[:notice] = "User #{params[:sub_id]} authorized!"
     redirect_back_or_default(user_network_path(current_user))
   end
@@ -108,6 +110,12 @@ class UsersController < ApplicationController
   def pause
     current_user.pause_subscription(params[:sub_id])
     flash[:notice] = "User #{params[:sub_id]} has been paused!"
+    redirect_back_or_default(user_network_path(current_user))
+  end
+  
+  def pause
+    current_user.delete_subscription(params[:sub_id])
+    flash[:notice] = "User #{params[:sub_id]} has been deleted!"
     redirect_back_or_default(user_network_path(current_user))
   end
   

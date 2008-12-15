@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     users.unsubscribe 'unsubscribe/:sub_id', :controller => 'users', :action => 'unsubscribe', :path_prefix => '/users/:id'
     users.authorize 'authorize/:sub_id', :controller => 'users', :action => 'authorize', :path_prefix => '/users/:id'
     users.pause 'pause/:sub_id', :controller => 'users', :action => 'pause', :path_prefix => '/users/:id'
+    users.delete 'delete/:sub_id', :controller => 'users', :action => 'delete', :path_prefix => '/users/:id'
   end
   
   map.root :controller => "home"

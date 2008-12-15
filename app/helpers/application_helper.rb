@@ -19,4 +19,8 @@ module ApplicationHelper
       message % item
     end
   end
+  
+  def if_own?(user)
+     current_user.login == user
+  end
 end

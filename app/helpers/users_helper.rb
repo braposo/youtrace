@@ -16,7 +16,7 @@ module UsersHelper
       yield action, resource
     end
   end
-
+  
   #
   # Link to user's page ('users/1')
   #

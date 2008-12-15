@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <%= stylesheet_link_tag "main"  %>
     <%= stylesheet_link_tag "reset-fonts-grids.css" %>
-	<% if action.action_name == "map" -%>
+	<% if controller.action_name == "map" -%>
     <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA3nav32DtbW5MFnDtJpeZZBRopN2rk1zMLE79IKq4tyYku6rrDBStxV7sgGMzdav5bgwGsZXhQ1W5UA"></script>
     <script type="text/javascript">
         google.load("maps", "2.x");

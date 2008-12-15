@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
       @user = user
     end
     
-    self.subscriptions.find_by_user_id(@user) ? true : false
+    self.subscriptions.find_by_subscriber_id(@user) ? true : false
   end
   
   #Check if current user is following :user
@@ -90,8 +90,9 @@ class User < ActiveRecord::Base
       @user = user
     end
     
-     @user.subscriptions.find_by_user_id(self) ? true : false
+     @user.subscriptions.find_by_subscriber_id(self) ? true : false
   end
+
   
   #Return list of authorized subscriptions
   def authorized_subscriptions
@@ -99,16 +100,28 @@ class User < ActiveRecord::Base
     @subs.map!{ |s| User.find_by_id(s.subscriber_id) }
   end
   
-  #Return list of pending subscriptions
+  #Return list of authorized subscriptions
+  def authorized_followers
+    @subs = Subscription.find :all, :conditions => ['subscriber_id = ? AND authorized = true', self.id]
+    @subs.map!{ |s| User.find_by_id(s.user_id) }
+  end
+  
+  #Return list of pending requests
+  def pending_requests
+    @subs = Subscription.find :all, :conditions => ['subscriber_id = ? AND authorized = false', self.id]
+    @subs.map!{ |s| User.find_by_id(s.user_id) }
+  end
+  
+  #Return list of pending requests
   def pending_subscriptions
     @subs = self.subscriptions.find :all, :conditions => 'authorized = false'
     @subs.map!{ |s| User.find_by_id(s.subscriber_id) }
   end
   
-  #Authorize subscription
-  def authorize_subscription(user)
+  #Authorize follower
+  def authorize_follower(user)
     @user = User.find_by_login(user)
-    @sub = self.subscriptions.find_by_subscriber_id @user.id
+    @sub = @user.subscriptions.find_by_subscriber_id self.id
     @sub.update_attributes(:authorized => true)
   end
   
@@ -121,14 +134,14 @@ class User < ActiveRecord::Base
   #Remove subscription
   def remove_subscription(user)
     @user = User.find_by_login(user)
-    @sub = self.subscriptions.find_by_subscriber_id @user.id
+    @sub = self.subscriptions.find_by_subscriber_id(@user.id)
     @sub.destroy
   end
   
   #Pause/unpause subscription
   def pause_subscription(user)
     @user = User.find_by_login(user)
-    @sub = self.subscriptions.find_by_subscriber_id @user.id
+    @sub = self.subscriptions.find_by_subscriber_id(@user.id)
     @sub.update_attributes(:paused => !@sub.paused)
   end
 

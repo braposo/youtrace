@@ -1,13 +1,23 @@
 <% if !@subscriptions.empty? -%>
 <h1>Subscriptions</h1>
 <% @subscriptions.each do |u| -%>
-   <li><%= link_to u.login, user_path(u) -%> <small>(<%= link_to "pause", user_pause_path(:sub_id => u) %> or <%= link_to 'unsubscribe', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small></li>
+   <li><%= link_to u.login, user_path(u) -%> <% if_own?(params[:id]) do -%><small>(<%= link_to "pause", user_pause_path(:sub_id => u) %> or <%= link_to 'unsubscribe', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small><% end -%></li>
 <% end -%>
 <% end -%>
 
-<% if !@pending.empty? -%>
+<% if !@followers.empty? -%>
+<h1>Followers</h1>
+<% @followers.each do |u| -%>
+   <li><%= link_to u.login, user_path(u) -%> <% if_own?(params[:id]) do -%><small>(<%= link_to "pause", user_pause_path(:sub_id => u) %> or <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small><% end -%></li>
+<% end -%>
+<% end -%>
+
+<% if (!@pending_reqs.empty? || !@pending_subs.empty?) && if_own?(params[:id]) -%>
 <h1>Pending requests</h1>
-<% @pending.each do |u| -%>
-   <li><%= link_to u.login, user_path(u) -%> <small>(<%= link_to "confirm", user_authorize_path(:sub_id => u) %> or <%= link_to 'delete', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small></li>
+<% @pending_reqs.each do |u| -%>
+   <li><%= link_to u.login, user_path(u) -%> <small>(<%= link_to "confirm", user_authorize_path(:sub_id => u) %> or <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small></li>
+<% end -%>
+<% @pending_subs.each do |u| -%>
+   <li><%= link_to u.login, user_path(u) -%> <small>Waiting for confirmation.</small></li>
 <% end -%>
 <% end -%>
