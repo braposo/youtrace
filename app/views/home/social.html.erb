@@ -1,6 +1,19 @@
-<h1>Latest Users</h1>
-<ul>
-  <% @users.each do |u| %>
-    <li><%= link_to u.login, user_path(u) -%> <small><%=  time_ago_in_words u.activated_at -%></small></li>
-  <% end %>
-</ul>
+<div class="yui-g first w100">
+	<div class="yui-u first">
+		<h1>Latest Users</h1>
+		<ul>
+		  <% @users.each do |u| %>
+		    <li><%= link_to u.login, user_path(u) -%> <small><%=  time_ago_in_words u.activated_at -%></small></li>
+		  <% end %>
+		</ul>
+	</div>
+	<div class="yui-u">
+		<h1>Latest Groups</h1>
+		<ul>
+		  <% @groups.each do |g| %>
+		    <li><%= link_to g.name, group_path(g) -%> <small><%=  time_ago_in_words g.created_at -%></small></li>
+		  <% end %>
+		</ul>
+	</div>
+</div>
+

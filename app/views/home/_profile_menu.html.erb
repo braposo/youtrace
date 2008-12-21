@@ -1,13 +1,23 @@
 <ul class="menu">
-  <li class="menu-item first"><%= link_to_unless_current("Dashboard", user_path(params[:id]||current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
-  <li class="menu-item"><%= link_to_unless_current("Network", user_network_path(params[:id]||current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
-  <li class="menu-item"><%= link_to_unless_current("Traces", user_traces_path(params[:id]||current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
-  <li class="menu-item"><%= link_to_unless_current("Info", user_info_path(params[:id]||current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+  <% if !in_controller?(controller,'groups') || params[:id].nil? %>
+	<li class="menu-header user"><%= @user.nil? ? current_user.login : @user.login %></li>
+  	<li class="menu-item user first"><%= link_to_unless_current("Dashboard", user_path(params[:id] || current_user)){ |content| content_tag("span", content, :class => 'current user')} -%></li>
+  	<li class="menu-item user"><%= link_to_unless_current("Network", user_network_path(params[:id] || current_user)){ |content| content_tag("span", content, :class => 'current user')} -%></li>
+  	<li class="menu-item user"><%= link_to_unless_current("Traces", user_traces_path(params[:id] || current_user)){ |content| content_tag("span", content, :class => 'current user')} -%></li>
+  	<li class="menu-item user"><%= link_to_unless_current("Info", user_info_path(params[:id] || current_user)){ |content| content_tag("span", content, :class => 'current user')} -%></li>
+  <% else %>
+	<li class="menu-header group"><%= @group.name %></li>
+	<li class="menu-item group first"><%= link_to_unless_current("Dashboard", group_path(params[:id])){ |content| content_tag("span", content, :class => 'current group')} -%></li>
+	<li class="menu-item group"><%= link_to_unless_current("Members", group_members_path(params[:id])){ |content| content_tag("span", content, :class => 'current group')} -%></li>
+	<li class="menu-item group"><%= link_to_unless_current("Traces", group_traces_path(params[:id])){ |content| content_tag("span", content, :class => 'current group')} -%></li>
+	<li class="menu-item group"><%= link_to_unless_current("Info", group_info_path(params[:id])){ |content| content_tag("span", content, :class => 'current group')} -%></li>
+  <% end %>
+
   <% if logged_in? -%>
-    <% if current_user.login == params[:id] || controller.controller_name != 'users' -%>
-      <li class="menu-item"><%= link_to_unless_current("Preferences", user_prefs_path(current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+    <% if if_own? params[:id] || !in_controller?(controller,'users') || !in_controller?(controller,'groups') -%>
+      <li class="menu-item user"><%= link_to_unless_current("Preferences", user_prefs_path(current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
     <% else -%>
-      <li class="menu-item"><%= link_to_unless_current("Back to my profile!", user_path(current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+      <li class="menu-item user"><%= link_to_unless_current("Back to my profile!", user_path(current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
     <% end -%>
   <% end -%>
 </ul>

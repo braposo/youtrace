@@ -1,3 +1,7 @@
-<% if !params[:id].nil? && logged_in? && !if_own?(params[:id]) && !current_user.is_following?(params[:id]) -%>
-    <%= link_to "Subscribe", user_subscribe_path(:id => current_user, :sub_id => params[:id]) %> user.
-<% end -%>
+<% @sidebar ||= [] %>
+<% if @sidebar.include? 'subscribe_user' -%><div class="sidebar-item"><%= link_to "Subscribe", user_subscribe_path(:id => current_user, :sub_id => params[:id]) %> user.</div><% end -%>
+
+<% if @sidebar.include? 'join_group' -%><div class="sidebar-item"><%= link_to "Join", group_join_path(params[:id]) %> group.</div><% end -%>
+
+<% if @sidebar.include? 'create_group' -%> <div class="sidebar-item"><%= link_to "Create", new_group_path() %> a new group.</div><% end -%>
+

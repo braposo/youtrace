@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081212032433) do
+ActiveRecord::Schema.define(:version => 20081216152116) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(:version => 20081212032433) do
   create_table "groups_users", :id => false, :force => true do |t|
     t.integer "group_id"
     t.integer "user_id"
-    t.integer "role",     :default => 0
   end
 
   add_index "groups_users", ["group_id", "user_id"], :name => "index_groups_users_on_group_id_and_user_id"
@@ -55,7 +54,7 @@ ActiveRecord::Schema.define(:version => 20081212032433) do
     t.string   "crypted_password",          :limit => 40
     t.string   "name",                      :limit => 100, :default => ""
     t.date     "birthdate"
-    t.integer  "sex"
+    t.string   "gender"
     t.decimal  "location_lat"
     t.decimal  "location_lon"
     t.string   "photo"

@@ -20,7 +20,11 @@ module ApplicationHelper
     end
   end
   
-  def if_own?(user)
-     current_user.login == user
+  def in_controller?(controller, name)
+    controller.controller_name == name
+  end
+  
+  def in_action?(controller, name)
+    controller.action_name == name
   end
 end

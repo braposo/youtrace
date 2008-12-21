@@ -1,23 +1,48 @@
-<% if !@subscriptions.empty? -%>
-<h1>Subscriptions</h1>
-<% @subscriptions.each do |u| -%>
-   <li><%= link_to u.login, user_path(u) -%> <% if_own?(params[:id]) do -%><small>(<%= link_to "pause", user_pause_path(:sub_id => u) %> or <%= link_to 'unsubscribe', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small><% end -%></li>
-<% end -%>
-<% end -%>
+<div class="yui-g first w100"> 
+	<div class="yui-u first"> 
+	 	<% if !@subscriptions.empty? -%>
+			<h1>Subscriptions</h1>
+			<% @subscriptions.each do |u| -%>
+			   	<li><%= link_to u.login, user_path(u) -%> 
+				<% if if_own?(params[:id]) -%>
+					<small>(<%= link_to "pause", user_pause_path(:sub_id => u) %> or <%= link_to 'unsubscribe', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small>
+				<% end -%></li>
+			<% end -%>
+		<% end -%>
 
-<% if !@followers.empty? -%>
-<h1>Followers</h1>
-<% @followers.each do |u| -%>
-   <li><%= link_to u.login, user_path(u) -%> <% if_own?(params[:id]) do -%><small>(<%= link_to "pause", user_pause_path(:sub_id => u) %> or <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small><% end -%></li>
-<% end -%>
-<% end -%>
+		<% if !@followers.empty? -%>
+			<h1>Followers</h1>
+			<% @followers.each do |u| -%>
+			   	<li><%= link_to u.login, user_path(u) -%> 
+				<% if if_own?(params[:id]) -%>
+					<small>(<%= link_to "pause", user_pause_path(:sub_id => u) %> or <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small>
+				<% end -%></li>
+			<% end -%>
+		<% end -%>
+	</div> 
+	<div class="yui-u first"> 
+		<% if !@groups.empty? -%>
+			<h1>Groups</h1>
+			<% @groups.each do |g| -%>
+			   	<li><%= link_to g.name, group_path(g) -%> 
+				<% if if_own?(params[:id]) -%>
+					<small>(<%= link_to 'leave', group_leave_path(g), :confirm => 'Are you sure?' %>)</small>
+				<% end -%></li>
+			<% end -%>
+		<% end -%>
+	</div> 
+</div>
+<div class="cf">
+	<% if ((!@pending_reqs.empty? || !@pending_subs.empty?) && if_own?(params[:id])) -%>
+		<h1>Pending requests</h1>
+		<% @pending_reqs.each do |u| -%>
+	   		<li><%= link_to u.login, user_path(u) -%> <small>(<%= link_to "confirm", user_authorize_path(:sub_id => u) %> or <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' 	%>)</small></li>
+		<% end -%>
+		<% @pending_subs.each do |u| -%>
+	   		<li><%= link_to u.login, user_path(u) -%> <small>Waiting for confirmation.(<%= link_to 'cancel', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small></li>
+		<% end -%>
+	<% end -%>
+</div>
 
-<% if (!@pending_reqs.empty? || !@pending_subs.empty?) && if_own?(params[:id]) -%>
-<h1>Pending requests</h1>
-<% @pending_reqs.each do |u| -%>
-   <li><%= link_to u.login, user_path(u) -%> <small>(<%= link_to "confirm", user_authorize_path(:sub_id => u) %> or <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small></li>
-<% end -%>
-<% @pending_subs.each do |u| -%>
-   <li><%= link_to u.login, user_path(u) -%> <small>Waiting for confirmation.</small></li>
-<% end -%>
-<% end -%>
+
+

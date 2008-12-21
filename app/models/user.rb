@@ -6,9 +6,7 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
 
   has_and_belongs_to_many :groups
-  #has_and_belongs_to_many :traces
-  #has_and_belongs_to_many :subscriptions, :class_name => "User", :join_table => "subscriptions", :foreign_key => "user_id", :association_foreign_key => "subscriber_id"
-  
+  has_and_belongs_to_many :traces  
   has_many :subscriptions
   has_many :subscribers, :through => :subscriptions
   
@@ -30,7 +28,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation
+  attr_accessible :name, :location_lat, :location_lon, :birthdate, :gender, :password, :password_confirmation
 
 
   # Activates the user in the database.
@@ -79,7 +77,7 @@ class User < ActiveRecord::Base
       @user = user
     end
     
-    self.subscriptions.find_by_subscriber_id(@user) ? true : false
+    @user.subscriptions.find_by_subscriber_id(self) ? true : false
   end
   
   #Check if current user is following :user
@@ -90,9 +88,12 @@ class User < ActiveRecord::Base
       @user = user
     end
     
-     @user.subscriptions.find_by_subscriber_id(self) ? true : false
+     self.subscriptions.find_by_subscriber_id(@user) ? true : false
   end
-
+  
+  def in_group?(group)
+     self.groups.find_by_id group
+  end
   
   #Return list of authorized subscriptions
   def authorized_subscriptions

@@ -68,3 +68,4 @@ Rails::Initializer.run do |config|
 end
 
 Mime::Type.register 'application/vnd.google-earth.kml+xml', :kml
+Time::DATE_FORMATS[:birth] = "%d %B, %Y"

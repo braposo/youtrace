@@ -2,7 +2,15 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :sessions
   map.resources :traces
-  map.resources :groups
+  map.resources :groups do |groups|
+    groups.home 'home', :controller => 'groups', :action => 'home', :path_prefix => '/groups/:id'
+    groups.members 'members', :controller => 'groups', :action => 'members', :path_prefix => '/groups/:id'
+    groups.traces 'traces', :controller => 'groups', :action => 'traces', :path_prefix => '/groups/:id'
+    groups.info 'info', :controller => 'groups', :action => 'info', :path_prefix => '/groups/:id'
+    groups.prefs 'prefs', :controller => 'groups', :action => 'prefs', :path_prefix => '/groups/:id'
+    groups.join 'join', :controller => 'groups', :action => 'join', :path_prefix => '/groups/:id'
+    groups.leave 'leave', :controller => 'groups', :action => 'leave', :path_prefix => '/groups/:id'
+  end
   
   #User navigation
   map.resources :users do |users|
@@ -11,7 +19,6 @@ ActionController::Routing::Routes.draw do |map|
     users.traces 'traces', :controller => 'users', :action => 'traces', :path_prefix => '/users/:id'
     users.info 'info', :controller => 'users', :action => 'info', :path_prefix => '/users/:id'
     users.prefs 'prefs', :controller => 'users', :action => 'prefs', :path_prefix => '/users/:id'
-    #users.resources :subscriptions, :path_prefix => '/users/:user_id'
     users.subscribe 'subscribe/:sub_id', :controller => 'users', :action => 'subscribe', :path_prefix => '/users/:id'
     users.unsubscribe 'unsubscribe/:sub_id', :controller => 'users', :action => 'unsubscribe', :path_prefix => '/users/:id'
     users.authorize 'authorize/:sub_id', :controller => 'users', :action => 'authorize', :path_prefix => '/users/:id'

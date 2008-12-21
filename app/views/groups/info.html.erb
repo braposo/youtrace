@@ -1,0 +1,20 @@
+<h1>Information</h1>
+<div class="yui-gf first w100 info"> 
+	<div class="yui-u first photo"> 
+	 	<%= photo_or_default_for @group, {:size => 100} %>
+	</div> 
+    <div class="yui-g">
+    	<div class="yui-u first">
+    		<table class="details">
+    			<tr><th>Name:</th><td><%= @group.name.empty? ? 'n/a' : @group.name -%></td></tr>
+				<tr><th>Created:</th><td><%= @group.created_at.to_s(:short) -%> (<%= time_ago_in_words @group.created_at -%> ago)</td></tr>
+    			<tr><th>Members:</th><td><%= @group.users.count -%></td></tr>
+    			<tr><th>Traced:</th><td><%= @group.traced -%> Km</td></tr>
+    			<tr><th>Privacy:</th><td><%= @group.privacy -%></td></tr>
+    		</table>
+    	</div>
+    	<div class="yui-u first">
+    		<div class="header">Description:</div> <%= @group.description.empty? ? 'n/a' : @group.description -%>
+    	</div>
+    </div>
+</div>

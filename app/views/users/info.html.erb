@@ -1,1 +1,23 @@
-<%= gravatar_for @user, {:size => 100} %>
+<h1>Information</h1>
+<div class="yui-gf first w100 info"> 
+	<div class="yui-u first"> 
+	 	<%= photo_or_gravatar_for @user, {:size => 100} %>
+	</div> 
+	<div class="yui-u first"> 
+		<table class="details">
+			<tr><th>Name:</th><td><%= @user.name.empty? ? 'n/a' : @user.name -%></td></tr>
+			<tr><th>Location:</th><td>n/a</td></tr>
+			<tr><th>Email:</th><td><%= @user.email -%></td></tr>
+			<tr><th>Birthday:</th><td><%= @user.birthdate.nil? ? 'n/a' : @user.birthdate.to_s(:long) -%></td></tr>
+			<tr><th>Gender:</th><td><%= @user.gender.nil? ? 'n/a' : @user.gender -%></td></tr>
+		</table>
+	</div> 
+</div>
+<div class="yui-g first w100">
+	<div class="yui-u first">
+		<h1>Vehicle details <small><%= link_to 'How is this useful?', root_path -%></small></h1>
+	</div>
+	<div class="yui-u">
+		<h1>GPS device <small><%= link_to 'How is this useful?', root_path -%></small></h1>
+	</div>
+</div>

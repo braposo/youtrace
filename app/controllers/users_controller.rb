@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   layout 'logged', :except => ['new','create', 'activate', 'subscribe']
   before_filter :login_required, :except => ['new','create', 'activate', 'subscribe']
+  before_filter :populate_sidebar, :except => ['new','create', 'activate', 'subscribe']
+  before_filter :populate_tips, :except => ['new','create', 'activate', 'subscribe']
 
   # render new.rhtml
   def new
@@ -51,6 +53,36 @@ class UsersController < ApplicationController
     
   end
   
+  # GET /users/login/edit
+  def edit
+    @user = active_user
+    add_breadcrumb active_user.login, user_path(@user)
+    add_breadcrumb "Info", user_info_path(@user)
+    add_breadcrumb "Edit"
+    
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @user.to_xml }
+    end
+  end
+  
+  # PUT /users/login
+  # PUT /users/login.xml
+  def update
+    @user = User.find_by_login(params[:id])
+
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        flash[:notice] = 'Your profile was successfully updated.'
+        format.html { redirect_to(user_info_path(@user)) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
   def network
     @user = active_user
     add_breadcrumb active_user.login, user_path(@user)
@@ -58,6 +90,7 @@ class UsersController < ApplicationController
     
     @subscriptions = @user.authorized_subscriptions
     @followers = @user.authorized_followers
+    @groups = @user.groups
     @pending_reqs = @user.pending_requests
     @pending_subs = @user.pending_subscriptions
     
@@ -78,6 +111,8 @@ class UsersController < ApplicationController
     add_breadcrumb active_user.login, user_path(@user)
     add_breadcrumb "Profile"
     
+    @tips << 'edit_profile' if current_user.login == params[:id]
+    
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user.to_xml }
@@ -97,7 +132,7 @@ class UsersController < ApplicationController
   
   def unsubscribe
     current_user.remove_subscription(params[:sub_id])
-    flash[:notice] = "User #{params[:id]} unsubscribed!"
+    flash[:notice] = "User #{params[:sub_id]} unsubscribed!"
     redirect_back_or_default(user_network_path(current_user))
   end
   
@@ -113,7 +148,7 @@ class UsersController < ApplicationController
     redirect_back_or_default(user_network_path(current_user))
   end
   
-  def pause
+  def delete
     current_user.delete_subscription(params[:sub_id])
     flash[:notice] = "User #{params[:sub_id]} has been deleted!"
     redirect_back_or_default(user_network_path(current_user))
@@ -122,6 +157,16 @@ class UsersController < ApplicationController
   private 
   def active_user
       @active_user ||= User.find_by_login(params[:id]) unless @active_user == false
-   end
+  end
   
+  def populate_sidebar
+    @sidebar = []
+    @sidebar << 'create_group' if logged_in?
+    @sidebar << 'subscribe_user' if (logged_in? && current_user.login != params[:id] && !current_user.is_following?(params[:id]))
+  end
+  
+  def populate_tips
+    @tips = []
+    @tips << 'return_profile' if current_user.login != params[:id]
+  end
 end

@@ -1,0 +1,6 @@
+<% if !@members.empty? -%>
+	<h1>Members</h1>
+	<% @members.each do |u| -%>
+	   	<li><%= link_to u.login, user_path(u) -%></li>
+	<% end -%>
+<% end -%>

@@ -1,31 +1,22 @@
-<h1>New group</h1>
+<div class="yui-g first w100">
+	<% form_for(@group) do |f| %>
+	  <%= f.error_messages %>
+	<div class="yui-u first">
+		<%= f.label :name, nil, :class => 'block'  %>
+	    <%= f.text_field :name, :class => 'field' %>
 
-<% form_for(@group) do |f| %>
-  <%= f.error_messages %>
+	    <%= f.label :description, nil, :class => 'block' %>
+	    <%= f.text_area :description, :size => '28x5', :class => 'field' %>
+	
+		<%= f.submit "Create", :class => 'button' %> or go <%= link_to 'back', social_path %>
+	</div>
+	<div class="yui-u">
+		<%= f.label :photo, nil, :class => 'block' %>
+	    <%= f.text_field :photo, :class => 'field' %>
 
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </p>
-  <p>
-    <%= f.label :photo %><br />
-    <%= f.text_field :photo %>
-  </p>
-  <p>
-    <%= f.label :privacy %><br />
-    <%= f.text_field :privacy %>
-  </p>
-  <p>
-    <%= f.label :traced %><br />
-    <%= f.text_field :traced %>
-  </p>
-  <p>
-    <%= f.submit "Create" %>
-  </p>
-<% end %>
-
-<%= link_to 'Back', groups_path %>
+	   	<%= f.label :privacy, nil, :class => 'block' %>
+	    <%= f.text_field :privacy, :class => 'field' %>
+	</div>
+	
+	<% end %>
+</div>

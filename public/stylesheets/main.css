@@ -10,14 +10,20 @@
 html { font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif !important; border-top: 5px solid #2A4353; }
 a { color: #2A4353;}
 a:hover, a:active { text-decoration: none; }
-abbr { color: #135487; border-bottom: 1px dashed #000; }
+abbr { color: #135487; border-bottom: 1px dashed #989DA4; }
+
+input, textarea { border: 1px solid #989DA4; font-size: 11px; padding: 2px;}
+input:focus, textarea:focus { border: 1px solid #135487; }
+input.field, textarea.field { display: block; margin-bottom: 5px;}
+input.button { display: inline; background: #135487; color: #fff; padding: 2px 4px; border: none; margin-top: 15px;}
+input[type="hidden"] { display: none;}
 
 /* Page sections */
 #hd { margin: 20px 0; height:100px; }
 #ft { height: 20px; font-size: 10px; margin-top: 30px; text-align: center; }
 #error { color: #fff; padding: 5px 10px; background: #ff6666; margin-bottom: 5px;}
 #notice { color: #000; padding: 5px 10px; background: #8cad8c; margin-bottom: 5px;}
-#map { height: 400px; width: 100%}
+#map { height: 400px; width: 100%;}
 
 /* Header */
 #hd .box { color: #fff; padding: 5px 10px; background: #2A4353; border-bottom: 2px solid #5CA2BE; margin-top: 65px;}
@@ -32,19 +38,29 @@ li.navbar-item a:hover, li.navbar-item a:active { color: white; background: #5CA
 
 /* Main content */
 .main { padding-left: 10px; }
-.main h1 { font-family: Georgia,'Times New Roman',times,serif; font-size: 20px; margin-bottom: 5px;}
+.main h1 { font-family: Georgia,'Times New Roman',times,serif; font-size: 25px; margin-bottom: 5px;}
+.main h1 small { font-size: 10px; }
 .main .box { padding: 5px 10px; margin: auto;}
 .main .login input { display: block; margin-bottom: 5px;}
 .main .login #remember_me { display: inline; }
 .main .login input.button { display: inline; background: #135487; color: #fff; padding: 2px 4px; border: none; margin-top: 15px;}
 .main .box label {  }
+.main img { background: #5CA2BE; padding: 1px; border: 5px solid #D5D8DD;}
+.main li small { display: none; color: #989DA4;}
+.main li small a { color: #989DA4; text-decoration: none; font-weight: bold;}
+.main li:hover small { display: inline;}
 
 /* Menu */
 .menu { }
-li.menu-item { font-family: Georgia,'Times New Roman',times,serif; padding: 5px 10px;}
-li.first {  }
-li.menu-item a:visited, li.menu-item a:link { text-decoration: none; padding: 5px }
-li.menu-item a:hover, li.menu-item a:active, .current { color: #fff; background: #135487; padding: 5px; }
+li.menu-item, li.menu-header { font-family: Georgia,'Times New Roman',times,serif; padding: 5px 10px; width: 100%;}
+li.menu-item a:visited, li.menu-item a:link { text-decoration: none; padding: 5px; }
+li.menu-item { color: #2A4353;  padding: 5px;}
+li .current { font-weight: bold; padding: 5px;}
+li.menu-item a:hover, li.menu-item a:active { text-decoration: underline;}
+li.menu-header { font-size: 18px; color: #fff; padding: 3px; text-align: center;}
+li.menu-header.user {  background: #2A4353; border-bottom: 2px solid #5CA2BE;}
+li.menu-header.group { background: #5CA2BE; border-bottom: 2px solid #2A4353;}
+
 
 /* Sidebar */
 .sidebar {}
@@ -54,6 +70,18 @@ li.menu-item a:hover, li.menu-item a:active, .current { color: #fff; background:
 /* Tips */
 .tips { background: #D5D8DD; padding: 5px; margin-bottom: 5px; color: #2A4353; font-size: 11px;}
 
+/* Info */
+.info { margin-bottom: 10px;}
+.info img { margin-left: 10px;}
+.info table.details th, div.header { width: 50px; color: #989DA4; text-align: right; padding-right: 5px; vertical-align: text-top;}
+.info table.details tr { line-height: 1.5em;}
+.info form table.details tr { line-height: 2em;}
+.info form table.details small { line-height: .5em; display: block; margin-bottom: 5px; color: #989DA4;}
+.info form { width: 100% !important;}
+.info form input { border: 1px solid #989DA4; font-size: 11px;}
+.info form input:focus { border: 1px solid #135487; }
+.info .photo_upload { margin-left: 15px;}
+
 /* Misc */
 .breadcrumbs { font-size: x-small; margin-bottom: 5px; border-bottom: 1px dotted #D5D8DD; padding-bottom: 8px;}
 
@@ -61,3 +89,6 @@ li.menu-item a:hover, li.menu-item a:active, .current { color: #fff; background:
 .fl { float: left; }
 .fr { float: right; }
 .cf { clear: both; }
+.w100 { width: 100% !important;}
+.w65 { width: 65% !important;}
+.block { display: block;}

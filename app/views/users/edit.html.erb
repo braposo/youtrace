@@ -1,0 +1,32 @@
+<h1>Information</h1>
+<div class="yui-gf first w100 info"> 
+	<% form_for(@user) do |f| %>
+	<div class="yui-u first"> 
+	 	<%= photo_or_gravatar_for @user, {:size => 100} %>
+		<div class="photo_upload"><%= button_to "Upload new photo", :class => "button" %>
+		or <%= link_to "delete", user_info_path(params[:id]) %> this one.</div>
+	</div>
+	<div class="yui-u first w65"> 
+		
+		  	<%= f.error_messages %>
+			<table class="details">
+				<tr><th>Email:</th><td><%= @user.email -%> <small>If this is no longer your email, please contact us</small></td></tr>
+				<tr><th>Name:</th><td><%= f.text_field :name -%></td></tr>
+				<tr><th>Location:</th><td><%= f.text_field :location_lat, :size => 10 -%><%= f.text_field :location_lon, :size => 10 -%></td></tr>
+				<tr><th>Birthday:</th><td><%= f.date_select :birthdate, :start_year => 1930, :end_year => Time.now.year - 5 -%></td></tr>
+				<tr><th>Gender:</th><td><%= f.radio_button :gender, "Male" -%><%= f.label :gender_male, "Male" %> <%= f.radio_button :gender, "Female" -%><%= f.label :gender_female, "Female" %></td></tr>
+			</table>
+			
+		
+	</div> 
+	<div class="cf"><%= f.submit "Update", :class => "button" %> or <%= link_to "cancel", user_info_path(params[:id]) %></div>
+	<% end %>
+</div>
+<div class="yui-g first w100">
+	<div class="yui-u first">
+		<h1>Vehicle details <small><%= link_to 'How is this useful?', root_path -%></small></h1>
+	</div>
+	<div class="yui-u">
+		<h1>GPS device <small><%= link_to 'How is this useful?', root_path -%></small></h1>
+	</div>
+</div>
