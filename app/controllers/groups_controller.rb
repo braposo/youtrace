@@ -49,6 +49,7 @@ class GroupsController < ApplicationController
     
     respond_to do |format|
       if @group.save
+        @group.groups_users.first.update_attribute :level, 2
         flash[:notice] = 'Group was successfully created.'
         format.html { redirect_to(@group) }
         format.xml  { render :xml => @group, :status => :created, :location => @group }

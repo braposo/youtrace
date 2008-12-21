@@ -26,7 +26,7 @@
 			<% @groups.each do |g| -%>
 			   	<li><%= link_to g.name, group_path(g) -%> 
 				<% if if_own?(params[:id]) -%>
-					<small>(<%= link_to 'leave', group_leave_path(g), :confirm => 'Are you sure?' %>)</small>
+					<small>(<%= link_to 'leave', group_leave_path(g), :confirm => 'Are you sure?' %> or <%= link_to 'delete', group_path(g), :confirm => 'Are you sure?', :method => :delete if g.is_owned_by? current_user %>)</small>
 				<% end -%></li>
 			<% end -%>
 		<% end -%>
