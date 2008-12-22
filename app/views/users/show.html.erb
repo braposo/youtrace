@@ -1,5 +1,27 @@
 <% if @user.nil? -%>
   <h1>User not found!</h1>
 <% else -%>
-  <h1><%= @user.login %> profile</h1>
+<div class="yui-gc w100"> 
+	<div class="yui-u first w65"> 
+		<% form_for Event.new, :html => {:class => 'message-form'} do |f| %>
+			<%= f.error_messages %>
+		    <%= f.label :text, "Leave a message", :class => 'header' %>
+		    <%= f.text_area :text, :size => '70x3', :class => 'field' %>
+			<%= f.submit "Send it!", :class => 'button' %>	    
+		    <%= f.check_box :private %>
+			<%= f.label :private %>    
+		<% end if if_own? params[:id] %>
+		
+	 	<% if !@events.empty? -%>
+			<% @events.each do |e| -%>
+			   	<%= render :partial => 'message_item', :locals => { :e => e } %>
+			<% end -%>
+		<% else -%>
+			No activity.
+		<% end -%>
+	</div> 
+	<div class="yui-u w35"> 
+		<h1>Overview</h1>
+	</div> 
+</div>
 <%  end -%>

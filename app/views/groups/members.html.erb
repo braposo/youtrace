@@ -1,6 +1,7 @@
 <% if !@members.empty? -%>
 	<h1>Members</h1>
 	<% @members.each do |u| -%>
-	   	<li><%= link_to u.login, user_path(u) -%></li>
+		<% @section = 'grp_admin' if @group.is_owned_by?(current_user) %>
+	   	<%= render :partial => 'users/user_item', :locals => { :u => u, :s => @section || 'grp' }%>
 	<% end -%>
 <% end -%>

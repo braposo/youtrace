@@ -27,4 +27,24 @@ module ApplicationHelper
   def in_action?(controller, name)
     controller.action_name == name
   end
+  
+  def photo_or_gravatar_for(user, options={})
+    default = {:class => 'photo', :size => '100', :alt => 'avatar'}
+    if !user.photo.nil?
+      options = default.merge(options)
+      "<img class=\"#{options[:class]}\" alt=\"#{options[:alt]}\" width=\"#{options[:size]}\" height=\"#{options[:size]}\" src=\"#{user.photo}\" />"
+    else
+      gravatar(user.email, options)
+    end
+  end
+  
+  def photo_or_default_for(group, options={})
+    default = {:class => 'photo', :size => '100', :alt => 'avatar'}
+    options = default.merge(options)
+    if !group.photo.empty?
+      "<img class=\"#{options[:class]}\" alt=\"#{options[:alt]}\" width=\"#{options[:size]}\" height=\"#{options[:size]}\" src=\"#{group.photo}\" />"
+    else
+      "<img class=\"#{options[:class]}\" alt=\"#{options[:alt]}\" width=\"#{options[:size]}\" height=\"#{options[:size]}\" src=\"#{image_path('groups/default.png')}\" />"
+    end
+  end
 end

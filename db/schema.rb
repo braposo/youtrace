@@ -9,7 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081221003904) do
+ActiveRecord::Schema.define(:version => 20081221162007) do
+
+  create_table "events", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.string   "format",      :default => "msg"
+    t.text     "text"
+    t.boolean  "private",     :default => false
+    t.integer  "receiver_id", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -24,7 +35,8 @@ ActiveRecord::Schema.define(:version => 20081221003904) do
   create_table "groups_users", :force => true do |t|
     t.integer  "group_id"
     t.integer  "user_id"
-    t.integer  "level",      :default => 0
+    t.integer  "level",           :default => 0
+    t.boolean  "protect_updates", :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,5 +1,29 @@
 <% if @group.nil? -%>
   <h1>Group not found!</h1>
 <% else -%>
-  <h1><%= @group.name %> group</h1>
+  <div class="yui-gc w100"> 
+	<div class="yui-u first w65"> 
+		<h1>Latest activity</h1>
+		<% form_for Event.new, :html => {:class => 'message-form'} do |f| %>
+			<%= f.error_messages %>
+			<%= f.hidden_field :group_id, :value => params[:id] %>
+		    <%= f.label :text, "New message", :class => 'block' %>
+		    <%= f.text_area :text, :size => '70x3', :class => 'field' %>
+			<%= f.submit "Send", :class => 'button' %>	    
+		    <%= f.check_box :private %>
+			<%= f.label :private %>    
+		<% end if current_user.in_group?(params[:id]) %>
+
+	 	<% if !@events.empty? -%>
+			<% @events.each do |e| -%>
+			   	<%= render :partial => 'users/message_item', :locals => { :e => e } %>
+			<% end -%>
+		<% else -%>
+			No activity.
+		<% end -%>
+	</div> 
+	<div class="yui-u w35"> 
+		<h1>Overview</h1>
+	</div> 
+</div>
 <%  end -%>

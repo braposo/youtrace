@@ -7,7 +7,8 @@
 */
 
 /* HTML selectors */
-html { font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif !important; border-top: 5px solid #2A4353; }
+html { border-top: 5px solid #2A4353; }
+body { font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif; }
 a { color: #2A4353;}
 a:hover, a:active { text-decoration: none; }
 abbr { color: #135487; border-bottom: 1px dashed #989DA4; }
@@ -15,6 +16,7 @@ abbr { color: #135487; border-bottom: 1px dashed #989DA4; }
 input, textarea { border: 1px solid #989DA4; font-size: 11px; padding: 2px;}
 input:focus, textarea:focus { border: 1px solid #135487; }
 input.field, textarea.field { display: block; margin-bottom: 5px;}
+textarea.field { width: 98%;}
 input.button { display: inline; background: #135487; color: #fff; padding: 2px 4px; border: none; margin-top: 15px;}
 input[type="hidden"] { display: none;}
 
@@ -37,22 +39,24 @@ li.navbar-item a:visited, li.navbar-item a:link { text-decoration: none; color: 
 li.navbar-item a:hover, li.navbar-item a:active { color: white; background: #5CA2BE; border-bottom: 2px solid #2A4353; }
 
 /* Main content */
-.main { padding-left: 10px; }
-.main h1 { font-family: Georgia,'Times New Roman',times,serif; font-size: 25px; margin-bottom: 5px;}
+.main { padding-left: 10px; border-right: 1px dotted #D5D8DD;}
+.main h1 { font-family: Georgia,'Times New Roman',times,serif; font-size: 24px; margin-bottom: 5px; color: #2A4353;}
+.main h2 { font-size: 11px; margin-top: -5px; color: #989DA4; margin-bottom: 15px;}
+.main h2 strong { font-weight: bold;}
 .main h1 small { font-size: 10px; }
 .main .box { padding: 5px 10px; margin: auto;}
 .main .login input { display: block; margin-bottom: 5px;}
 .main .login #remember_me { display: inline; }
 .main .login input.button { display: inline; background: #135487; color: #fff; padding: 2px 4px; border: none; margin-top: 15px;}
 .main .box label {  }
-.main img { background: #5CA2BE; padding: 1px; border: 5px solid #D5D8DD;}
+.main img.gravatar { background: #5CA2BE; padding: 1px; border: 5px solid #D5D8DD;}
 .main li small { display: none; color: #989DA4;}
 .main li small a { color: #989DA4; text-decoration: none; font-weight: bold;}
 .main li:hover small { display: inline;}
 
 /* Menu */
 .menu { }
-li.menu-item, li.menu-header { font-family: Georgia,'Times New Roman',times,serif; padding: 5px 10px; width: 100%;}
+li.menu-item, li.menu-header { padding: 5px 10px; width: 100%;}
 li.menu-item a:visited, li.menu-item a:link { text-decoration: none; padding: 5px; }
 li.menu-item { color: #2A4353;  padding: 5px;}
 li .current { font-weight: bold; padding: 5px;}
@@ -82,6 +86,23 @@ li.menu-header.group { background: #5CA2BE; border-bottom: 2px solid #2A4353;}
 .info form input:focus { border: 1px solid #135487; }
 .info .photo_upload { margin-left: 15px;}
 
+/* Events */
+.message { padding-bottom: 10px; margin-bottom: 5px; border-bottom: 1px solid #D5D8DD;}
+.message img { vertical-align: middle;}
+.message-sender strong { font-weight: bold;}
+.message-sender small { color: #989DA4;}
+.message-form { margin-bottom: 10px;}
+.message-form textarea.field { margin-bottom: 0px;}
+.message-form input.button { margin-top: 1px;}
+
+.item-block { margin-bottom: 30px;}
+.item-actions { display: none; color: #989DA4; font-size: x-small;}
+.item-actions a { color: #989DA4; text-decoration: none; font-weight: bold;}
+.item:hover .item-actions { display: inline;}
+.item { width: 100%; margin-bottom: 5px;}
+.item img { vertical-align: text-bottom;}
+label.header { font-family: Georgia,'Times New Roman',times,serif; font-size: 24px; color: #989DA4;}
+
 /* Misc */
 .breadcrumbs { font-size: x-small; margin-bottom: 5px; border-bottom: 1px dotted #D5D8DD; padding-bottom: 8px;}
 
@@ -90,5 +111,8 @@ li.menu-header.group { background: #5CA2BE; border-bottom: 2px solid #2A4353;}
 .fr { float: right; }
 .cf { clear: both; }
 .w100 { width: 100% !important;}
-.w65 { width: 65% !important;}
+.w65 { width: 64% !important;} /* 2/3 */
+.w35 { width: 34% !important;} /* 1/3 */
+.w74 { width: 74% !important;} /* 3/4 */
+.mt10 { margin-top: 10px;}
 .block { display: block;}

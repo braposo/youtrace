@@ -45,6 +45,8 @@ class UsersController < ApplicationController
     add_breadcrumb active_user.login, user_path(@user)
     add_breadcrumb "Dashboard"
     
+    @events = @user.get_all_events
+
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user.to_xml }

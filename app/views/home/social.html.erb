@@ -3,7 +3,7 @@
 		<h1>Latest Users</h1>
 		<ul>
 		  <% @users.each do |u| %>
-		    <li><%= link_to u.login, user_path(u) -%> <small><%=  time_ago_in_words u.activated_at -%></small></li>
+		    <%= render :partial => 'users/user_item', :locals => { :u => u, :s => 'default'}%>
 		  <% end %>
 		</ul>
 	</div>

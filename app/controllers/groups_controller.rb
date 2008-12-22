@@ -16,6 +16,8 @@ class GroupsController < ApplicationController
     add_breadcrumb @group.name, group_path(@group)
     add_breadcrumb "Dashboard"
     
+    @events = @group.get_all_events
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @group }
@@ -129,10 +131,11 @@ class GroupsController < ApplicationController
   
   def leave
     @group = active_group
-    @group.users.delete current_user
+    @user = params[:user_id] || current_user
+    @group.users.delete @user
     
     flash[:notice] = "Group #{@group.name} unsubscribed!"
-    redirect_back_or_default(user_network_path(current_user))
+    redirect_back_or_default(user_network_path(@user))
   end
   
   private 

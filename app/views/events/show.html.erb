@@ -1,0 +1,23 @@
+<p>
+  <b>Type:</b>
+  <%=h @event.type %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%=h @event.text %>
+</p>
+
+<p>
+  <b>Private:</b>
+  <%=h @event.private %>
+</p>
+
+<p>
+  <b>Receiver:</b>
+  <%=h @event.receiver_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

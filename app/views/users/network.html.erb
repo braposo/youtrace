@@ -1,46 +1,65 @@
 <div class="yui-g first w100"> 
 	<div class="yui-u first"> 
-	 	<% if !@subscriptions.empty? -%>
+		<div class="item-block">
 			<h1>Subscriptions</h1>
-			<% @subscriptions.each do |u| -%>
-			   	<li><%= link_to u.login, user_path(u) -%> 
-				<% if if_own?(params[:id]) -%>
-					<small>(<%= link_to "pause", user_pause_path(:sub_id => u) %> or <%= link_to 'unsubscribe', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small>
-				<% end -%></li>
+			<% if !@subscriptions.empty? -%>
+				<h2>You're subscribing <strong><%= @subscriptions.size %></strong> users. Why don't you <%= link_to "extend", social_path %> your network?</h2>
+				<div class="item-list">
+				<% @subscriptions.each do |u| -%>
+				   	<%= render :partial => 'user_item', :locals => { :u => u, :s => 'subs'}%>
+				<% end -%>
+				</div>
+			<% else -%>
+				<h2>Ohhhh, you don't have subscriptions. Maybe a visit to <%= link_to "social", social_path %> section?</h2>
 			<% end -%>
-		<% end -%>
-
-		<% if !@followers.empty? -%>
-			<h1>Followers</h1>
-			<% @followers.each do |u| -%>
-			   	<li><%= link_to u.login, user_path(u) -%> 
-				<% if if_own?(params[:id]) -%>
-					<small>(<%= link_to "pause", user_pause_path(:sub_id => u) %> or <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small>
-				<% end -%></li>
+		</div>
+		<div class="item-block">
+			<% if !@followers.empty? -%>
+				<h1>Followers</h1>
+				<h2>You have <strong><%= @followers.size %></strong> followers.</h2>
+				<div class="item-list">
+				<% @followers.each do |u| -%>
+				   	<%= render :partial => 'user_item', :locals => { :u => u, :s => 'follower'}%>
+				<% end -%>
+				</div>
 			<% end -%>
-		<% end -%>
+		</div>
 	</div> 
 	<div class="yui-u first"> 
-		<% if !@groups.empty? -%>
+		<div class="item-block">
 			<h1>Groups</h1>
-			<% @groups.each do |g| -%>
-			   	<li><%= link_to g.name, group_path(g) -%> 
-				<% if if_own?(params[:id]) -%>
-					<small>(<%= link_to 'leave', group_leave_path(g), :confirm => 'Are you sure?' %> or <%= link_to 'delete', group_path(g), :confirm => 'Are you sure?', :method => :delete if g.is_owned_by? current_user %>)</small>
-				<% end -%></li>
+			<% if !@groups.empty? -%>
+				<h2>You are in <strong><%= @groups.size %></strong> groups. Feeling <%= link_to "lonely", social_path %>?</h2>
+				<div class="item-list">
+				<% @groups.each do |g| -%>
+				   	<div class="item">
+						<%= photo_or_default_for g, { :size => '20', :class => 'lol' } %> <%= link_to g.name, group_path(g) -%> 
+						<% if if_own?(params[:id]) -%>
+							<div class="item-actions">(<%= link_to 'leave', group_leave_path(g), :confirm => 'Are you sure?' %> | <%= link_to 'delete', group_path(g), :confirm => 'Are you sure?', :method => :delete if g.is_owned_by? current_user %>)</div>
+						<% end -%>
+					</div>
+				<% end -%>
+				</div>
+			<% else -%>
+				You are alone in this world. Why don't you try to find new groups?
 			<% end -%>
-		<% end -%>
+		</div>
 	</div> 
 </div>
 <div class="cf">
 	<% if ((!@pending_reqs.empty? || !@pending_subs.empty?) && if_own?(params[:id])) -%>
-		<h1>Pending requests</h1>
-		<% @pending_reqs.each do |u| -%>
-	   		<li><%= link_to u.login, user_path(u) -%> <small>(<%= link_to "confirm", user_authorize_path(:sub_id => u) %> or <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' 	%>)</small></li>
-		<% end -%>
-		<% @pending_subs.each do |u| -%>
-	   		<li><%= link_to u.login, user_path(u) -%> <small>Waiting for confirmation.(<%= link_to 'cancel', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)</small></li>
-		<% end -%>
+		<div class="item-block">
+			<h1>Pending requests</h1>
+			<h2>You have <strong><%= @pending_reqs.size + @pending_subs.size %></strong> pending requests.</h2>
+			<div class="item-list">
+				<% @pending_reqs.each do |u| -%>
+	   				<%= render :partial => 'user_item', :locals => { :u => u, :s => 'reqs'}%>
+				<% end -%>
+				<% @pending_subs.each do |u| -%>
+	   				<%= render :partial => 'user_item', :locals => { :u => u, :s => 'pending'}%>
+				<% end -%>
+			</div>
+		</div>
 	<% end -%>
 </div>
 

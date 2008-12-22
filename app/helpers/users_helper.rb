@@ -89,16 +89,6 @@ module UsersHelper
       link_to_login_with_IP content_text, options
     end
   end
-
-  def photo_or_gravatar_for(user, options={})
-    default = {:class => 'photo', :size => '100', :alt => 'avatar'}
-    if !user.photo.nil?
-      options = default.merge(options)
-      "<img class=\"#{options[:class]}\" alt=\"#{options[:alt]}\" width=\"#{options[:size]}\" height=\"#{options[:size]}\" src=\"#{user.photo}\" />"
-    else
-      gravatar(user.email, options)
-    end
-  end
   
   def if_own?(user)
      current_user.login == user

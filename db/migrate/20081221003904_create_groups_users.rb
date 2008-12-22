@@ -4,6 +4,7 @@ class CreateGroupsUsers < ActiveRecord::Migration
       t.integer :group_id
       t.integer :user_id
       t.integer :level, :default => 0
+      t.boolean :protect_updates, :default => false
       t.timestamps
     end
   end
