@@ -1,1 +1,22 @@
 <div id='map'></div>
+<div class="yui-g first w100"> 
+	<h1>Recent traces</h1>
+	<div class="yui-u first"> 
+		<div class="item-block">
+			<% if !@traces.empty? -%>
+				<% @s = @group.is_owned_by?(current_user)? 'owner' : 'user' %>
+				<h2>This group has <strong><%= @traces.size %></strong> traces. Why don't you <%= link_to "add", new_trace_path %> some more traces?</h2>
+				<div class="item-list">
+				<% @traces.each do |t| -%>
+				   	<%= render :partial => 'traces/trace_item', :locals => { :t => t, :s => @s}%>
+				<% end -%>
+				</div>
+			<% else -%>
+				<h2>It seems that you don't have traces. Want to <%= link_to "add", new_trace_path %> a new one?</h2>
+			<% end -%>
+		</div>
+	</div> 
+	<div class="yui-u first"> 
+		
+	</div> 
+</div>

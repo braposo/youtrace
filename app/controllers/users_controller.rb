@@ -103,16 +103,17 @@ class UsersController < ApplicationController
   end
   
   def traces
-    active_user
-    add_breadcrumb active_user.login, user_path(active_user)
+    @user = active_user
+    add_breadcrumb active_user.login, user_path(@user)
     add_breadcrumb "Traces"
+    
+    @traces = @user.traces
   end
   
   def info
     @user = active_user
     add_breadcrumb active_user.login, user_path(@user)
     add_breadcrumb "Profile"
-    
     @tips << 'edit_profile' if current_user.login == params[:id]
     
     respond_to do |format|
@@ -165,6 +166,7 @@ class UsersController < ApplicationController
     @sidebar = []
     @sidebar << 'create_group' if logged_in?
     @sidebar << 'subscribe_user' if (logged_in? && current_user.login != params[:id] && !current_user.is_following?(params[:id]))
+    @sidebar << 'add_trace' if logged_in?
   end
   
   def populate_tips

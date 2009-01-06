@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  kind: MyString
+  make: MyString
+  model: MyString
+  displace: MyString
+  highway: 9.99
+  city: 9.99
+  combined: 9.99
+
+two:
+  kind: MyString
+  make: MyString
+  model: MyString
+  displace: MyString
+  highway: 9.99
+  city: 9.99
+  combined: 9.99

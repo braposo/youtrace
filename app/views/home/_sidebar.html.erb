@@ -1,7 +1,19 @@
 <% @sidebar ||= [] %>
+  <div class="ribbon"><%= image_tag "login_ribbon.png" %></div>
+  <div class="login-box">
+	<span class="shadow"></span>
+    <% if logged_in? -%>
+      <p>You are now logged in as <%= link_to current_user.login, user_path(current_user) %>. (<%= link_to "logout", logout_path, { :title => "Log out" } %>)</p>
+	  <p>Bellow you'll find some shortcuts and tips to the most common actions.</p>
+    <% else -%>
+      Welcome! Please <%= link_to "Log in", login_path, { :title => "Log in" } %> or <%= link_to "Sign up", signup_path, { :title => "Sign up" } %>
+    <% end -%>
+  </div>
+
 <% if @sidebar.include? 'subscribe_user' -%><div class="sidebar-item"><%= link_to "Subscribe", user_subscribe_path(:id => current_user, :sub_id => params[:id]) %> user.</div><% end -%>
 
 <% if @sidebar.include? 'join_group' -%><div class="sidebar-item"><%= link_to "Join", group_join_path(params[:id]) %> group.</div><% end -%>
 
 <% if @sidebar.include? 'create_group' -%> <div class="sidebar-item"><%= link_to "Create", new_group_path() %> a new group.</div><% end -%>
 
+<% if @sidebar.include? 'add_trace' -%> <div class="sidebar-item"><%= link_to "Add", new_trace_path() %> a new trace.</div><% end -%>

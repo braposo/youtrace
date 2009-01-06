@@ -4,8 +4,8 @@ class Group < ActiveRecord::Base
   
   has_many :groups_users
   has_many :users, :through => :groups_users
-  has_many :events
-  #has_and_belongs_to_many :traces 
+  has_and_belongs_to_many :events
+  has_and_belongs_to_many :traces 
   
   def is_owned_by?(user)
     @tmp = self.groups_users.find_by_user_id user, :conditions => 'level = 2'

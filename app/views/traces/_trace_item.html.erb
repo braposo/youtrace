@@ -1,0 +1,11 @@
+<div class="item">
+	<%= link_to t.name, trace_path(t) -%> 
+	
+	<div class="item-actions">
+		<% if s == 'owner' -%>
+			(<%= link_to "edit", edit_trace_path(t) -%> | <%= link_to 'delete', trace_path(t), :confirm => 'Are you sure?', :method => :delete -%>)
+		<% else %>
+			<%= time_ago_in_words t.created_at %>
+		<% end %>
+	</div>
+</div>

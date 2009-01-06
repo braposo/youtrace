@@ -1,4 +1,6 @@
 class TracesController < ApplicationController
+  layout 'logged'
+  
   # GET /traces
   # GET /traces.xml
   def index
@@ -14,7 +16,9 @@ class TracesController < ApplicationController
   # GET /traces/1.xml
   def show
     @trace = Trace.find(params[:id])
-
+    add_breadcrumb "Traces", traces_path
+    add_breadcrumb @trace.name
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @trace }
@@ -25,7 +29,13 @@ class TracesController < ApplicationController
   # GET /traces/new.xml
   def new
     @trace = Trace.new
-
+    @user = current_user 
+    @vehicles = @user.vehicles
+    @devices = @user.devices
+    add_breadcrumb @user.login, user_path(@user)
+    add_breadcrumb "Traces", user_traces_path(@user)
+    add_breadcrumb "Add trace"
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @trace }
@@ -35,6 +45,9 @@ class TracesController < ApplicationController
   # GET /traces/1/edit
   def edit
     @trace = Trace.find(params[:id])
+    @user = current_user 
+    @vehicles = @user.vehicles
+    @devices = @user.devices
   end
 
   # POST /traces
@@ -45,7 +58,7 @@ class TracesController < ApplicationController
     respond_to do |format|
       if @trace.save
         flash[:notice] = 'Trace was successfully created.'
-        format.html { redirect_to(@trace) }
+        format.html { redirect_to(user_traces_path(current_user)) }
         format.xml  { render :xml => @trace, :status => :created, :location => @trace }
       else
         format.html { render :action => "new" }
@@ -57,6 +70,7 @@ class TracesController < ApplicationController
   # PUT /traces/1
   # PUT /traces/1.xml
   def update
+    params[:trace][:group_ids] ||= []
     @trace = Trace.find(params[:id])
 
     respond_to do |format|

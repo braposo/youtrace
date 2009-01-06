@@ -1,19 +1,19 @@
 <div class="item">
 	<%= photo_or_gravatar_for u, { :size => '20', :class => 'lol' } %> <%= link_to u.login, user_path(u) -%> 
 	
-		<div class="item-actions">
-			<% if s == 'sub' -%>
-				(<%= link_to "pause", user_pause_path(:sub_id => u) -%> | <%= link_to 'unsubscribe', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' -%>)
-			<% elsif s == 'follower' %>
-				(<%= link_to "pause", user_pause_path(:sub_id => u) %> | <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' %>)
-			<% elsif s == 'reqs' %>	
-				(<%= link_to "confirm", user_authorize_path(:sub_id => u) %> | <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' 	%>)
-			<% elsif s == 'pending' %>	
-				Waiting for confirmation. (<%= link_to 'cancel', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)
-			<% elsif s == 'grp_admin' %>	
-				(<%= link_to 'delete', group_leave_path(params[:id],:user_id => u), :confirm => 'Are you sure?' %>)	
-			<% else %>
-				<%= time_ago_in_words u.created_at %>
-			<% end %>
-		</div>
+	<div class="item-actions">
+		<% if s == 'sub' -%>
+			(<%= link_to "pause", user_pause_path(:sub_id => u) -%> | <%= link_to 'unsubscribe', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' -%>)
+		<% elsif s == 'follower' %>
+			(<%= link_to "pause", user_pause_path(:sub_id => u) %> | <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' %>)
+		<% elsif s == 'reqs' %>	
+			(<%= link_to "confirm", user_authorize_path(:sub_id => u) %> | <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' 	%>)
+		<% elsif s == 'pending' %>	
+			Waiting for confirmation. (<%= link_to 'cancel', user_unsubscribe_path(:sub_id => u), :confirm => 'Are you sure?' %>)
+		<% elsif s == 'grp_admin' %>	
+			(<%= link_to 'delete', group_leave_path(params[:id],:user_id => u), :confirm => 'Are you sure?' %>)	
+		<% else %>
+			<%= time_ago_in_words u.created_at %>
+		<% end %>
+	</div>
 </div>

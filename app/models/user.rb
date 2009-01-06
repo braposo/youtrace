@@ -9,7 +9,10 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :groups_users  
   has_many :subscriptions
   has_many :subscribers, :through => :subscriptions
-  has_many :events
+  has_many :events, :dependent => :destroy
+  has_many :traces, :dependent => :destroy
+  has_and_belongs_to_many :vehicles
+  has_and_belongs_to_many :devices
   
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -125,12 +128,16 @@ class User < ActiveRecord::Base
     @user = User.find_by_login(user)
     @sub = @user.subscriptions.find_by_subscriber_id self.id
     @sub.update_attributes(:authorized => true)
+    Event.create(:user_id => self.id, :format => "add_sub", :text => "Authorized request from @#{@user.login}", :private => false)
+    Event.create(:user_id => @user.id, :format => "add_sub", :text => "is following @#{self.login}", :private => false)
   end
   
   #Request subscription
   def request_subscription(user)
     @user = User.find_by_login(user)
     Subscription.create(:user_id => self.id, :subscriber_id => @user.id)
+    Event.create(:user_id => self.id, :format => "request", :text => "Sent a subscribe request to @#{@user.login}", :private => true)
+    Event.create(:user_id => @user.id, :format => "request", :text => "Received a subscribe request from @#{self.login}", :private => true)
   end
   
   #Remove subscription
@@ -138,6 +145,9 @@ class User < ActiveRecord::Base
     @user = User.find_by_login(user)
     @sub = self.subscriptions.find_by_subscriber_id(@user.id)
     @sub.destroy
+    
+    Event.create(:user_id => self.id, :format => "rm_sub", :text => "Removed subscription of @#{@user.login}", :private => true)
+    Event.create(:user_id => @user.id, :format => "rm_sub", :text => "@#{self.login} is no longer following you.", :private => true)
   end
   
   #Pause/unpause subscription
@@ -153,13 +163,20 @@ class User < ActiveRecord::Base
   end
   
   def get_all_events
+    #Events from user
     @tmp = self.events.find :all, :order => 'created_at DESC'
     
+    #Events from user's subscriptions
     self.authorized_subscriptions.each do |s|
       @tmp += s.events.find :all, :order => 'created_at DESC'
     end
     
-    return @tmp.sort {|a,b| b.created_at <=> a.created_at}
+    #Events from user's groups
+    self.groups.each do |g|
+      @tmp += g.events.find :all, :order => 'created_at DESC'
+    end
+    
+    return @tmp.uniq.sort {|a,b| b.created_at <=> a.created_at}
   end
   
   protected

@@ -1,12 +1,46 @@
-<h1>Editing trace</h1>
+<div class="yui-g first w100"> 
+	<h1>Edit trace details</h1>
+	<h2>You can only edit trace details.</h2>
+	<div class="yui-u first"> 
+		<% form_for(@trace) do |f| %>
+		  	<%= f.error_messages %>
+		  	<%= f.label :name, nil, :class => 'block'  %>
+	    	<%= f.text_field :name, :class => 'field' %>
 
-<% form_for(@trace) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
-
-<%= link_to 'Show', @trace %> |
-<%= link_to 'Back', traces_path %>
+	    	<%= f.label :description, nil, :class => 'block' %>
+	    	<%= f.text_area :description, :rows => '2', :class => 'field' %>
+			
+			<%= f.label :group, nil, :class => 'block' %>
+			<% # f.collection_select :group_ids, @user.groups.find(:all), :id, :name, { :selected => @user.group_ids, :include_blank => '- Select One -' }, { :multiple => true, :name => 'trace[group_ids][]', :class => 'field'} %>
+			<% for group in @user.groups.find(:all) -%>
+				<%= check_box_tag "trace[group_ids][]", group.id, @trace.groups.include?(group) -%>
+				<%= group.name -%>
+			<% end -%>
+			
+			<%= f.label :kind, nil, :class => 'block' %>
+			<%= f.select :kind, ['Road', 'Freeway', 'Offroad', 'Sidewalk', 'Water'], :class => 'field' %>
+			
+			<%= f.label :vehicle, nil, :class => 'block' %>
+			<% if !@vehicles.empty? -%>
+				<%= f.collection_select :vehicle, @vehicles, :id, :name, :class => 'field' %>
+			<% else %>
+				<h2>Please <%= link_to "associate", edit_user_path(@user) -%> a vehicle to this account</h2>
+			<% end %>
+			<% # f.select :vehicle, ['Car', 'Bicycle', 'Foot', 'Boat', 'Motocycle'], :include_blank => '- Select One -', :class => 'field' %>
+			
+			<%= f.label :device, nil, :class => 'block' %>
+			<% if !@devices.empty? -%>
+				<%= f.collection_select :vehicle, @devices, :id, :name, :class => 'field' %>
+			<% else %>
+				<h2>Please <%= link_to "associate", edit_user_path(@user) -%> a GPS device to this account</h2>
+			<% end %>
+			<%= f.hidden_field :user_id, :value => @user.id %>
+		  <p>
+		    <%= f.submit "Save trace", :class => "button" %> or <%= link_to "go back", user_path(@user) %> to my profile
+		  </p>
+		<% end %>
+	</div> 
+	<div class="yui-u first"> 
+		
+	</div> 
+</div>

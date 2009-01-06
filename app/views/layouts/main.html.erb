@@ -25,20 +25,21 @@
 	<% end -%>
   </head>
   <body onunload="GUnload()">
-    <div id="doc2" class="yui-t7">
+    <div id="doc3" class="yui-t7">
       <%= render :partial => "home/header" -%>
       <div id="bd"> 
         <%= flash_messages -%>  
-        <div class="yui-ge main">
-          <div class="yui-u first">
+        <div class="yui-ge">
+          <div class="yui-u main first">
             <%= yield -%>
           </div>
           <div class="yui-u sidebar">
             <%= render :partial => "home/sidebar" -%>
           </div>
-        </div>   
+        </div>
       </div> 
       <%= render :partial => "home/footer" -%>
     </div>
   </body>
+  <%= javascript_include_tag "jquery", "jquery.jparallax", "application" %>
 </html>

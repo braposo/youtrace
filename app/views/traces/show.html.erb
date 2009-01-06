@@ -1,3 +1,28 @@
+<div class="yui-g first w100"> 
+	<h1><%= @trace.name %></h1>
+	<h2>Viewing trace details.</h2>
+	<div class="yui-u first"> 
+		<%= label_tag :author, nil, :class => 'block'  %>
+    	<%= link_to @trace.user.login, user_path(@trace.user) %>
 
-<%= link_to 'Edit', edit_trace_path(@trace) %> |
-<%= link_to 'Back', traces_path %>
+    	<%= label_tag :description, nil, :class => 'block' %>
+    	<%= @trace.description %>
+		
+		<%= label_tag :group, nil, :class => 'block' %>
+		<% for group in @trace.groups -%>
+			<%= group.name -%>
+		<% end -%>
+		
+		<%= label_tag :kind, nil, :class => 'block' %>
+		<%= @trace.kind %>
+		
+		<%= label_tag :vehicle, nil, :class => 'block' %>
+		<%= @trace.vehicle || "n/a" %>
+		
+		<%= label_tag :device, nil, :class => 'block' %>
+		<%= @trace.device || "n/a" %>
+	</div> 
+	<div class="yui-u first"> 
+		
+	</div> 
+</div>

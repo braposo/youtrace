@@ -1,17 +1,17 @@
 <div id="hd">
-  <%= image_tag("header_alpha.png", :class => 'fl')  %>
-  <ul class="navbar fl">
-    <li class="navbar-item"><%= link_to_unless_current("Home", root_path){ |content| content_tag("span", content, :class => 'current')} -%></li>
-    <li class="navbar-item"><%= link_to_unless_current("Map", map_path){ |content| content_tag("span", content, :class => 'current')} -%></li>
-    <li class="navbar-item"><%= link_to_unless_current("Social", social_path){ |content| content_tag("span", content, :class => 'current')} -%></li>
-    <li class="navbar-item"><%= link_to_unless_current("How to", howto_path){ |content| content_tag("span", content, :class => 'current')} -%></li>
-    <li class="navbar-item"><%= link_to_unless_current("About", about_path){ |content| content_tag("span", content, :class => 'current')} -%></li>
+  <%= image_tag("logo_alpha.png", :class => 'fl logo')  %>
+  <ul id="navbar" class="fl">
+    <div>
+		<li class="navbar-item"><%= link_to_unless_current("<p>Home</p>", root_path, :class => 'home'){ |content| content_tag("span", content, :class => 'home-active')} -%></li>
+    	<li class="navbar-item"><%= link_to_unless_current("<p>How to</p>", howto_path, :class => 'howto'){ |content| content_tag("span", content, :class => 'howto-active')} -%></li>
+    </div>
+    <div>
+		<li class="navbar-item"><%= link_to_unless_current("<p>Social</p>", social_path, :class => 'social'){ |content| content_tag("span", content, :class => 'social-active')} -%></li>
+	</div>
+	<div>
+		<li class="navbar-item"><%= link_to_unless_current("<p>Map</p>", map_path, :class => 'map'){ |content| content_tag("span", content, :class => 'map-active')} -%></li>
+    	<li class="navbar-item"><%= link_to_unless_current("<p>About</p>", about_path, :class => 'about'){ |content| content_tag("span", content, :class => 'about-active')} -%></li>
+	</div>
   </ul>
-  <div class="fr box">
-    <% if logged_in? -%>
-      Logged in as <%= link_to current_user.login, user_path(current_user) %> (<%= link_to "Log out", logout_path, { :title => "Log out" } %>)
-    <% else -%>
-      Welcome! Please <%= link_to "Log in", login_path, { :title => "Log in" } %> or <%= link_to "Sign up", signup_path, { :title => "Sign up" } %>
-    <% end -%>
-  </div>
+  <div class="hd-left"></div><div class="hd-right"></div><div class="hd-bar"></div>	
 </div>

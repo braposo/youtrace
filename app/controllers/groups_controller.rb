@@ -119,6 +119,8 @@ class GroupsController < ApplicationController
     @group = active_group
     add_breadcrumb @group.name, group_path(@group)
     add_breadcrumb "Traces"
+    
+    @traces = @group.traces
   end
   
   def join

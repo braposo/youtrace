@@ -6,7 +6,7 @@
 		<h1>Latest activity</h1>
 		<% form_for Event.new, :html => {:class => 'message-form'} do |f| %>
 			<%= f.error_messages %>
-			<%= f.hidden_field :group_id, :value => params[:id] %>
+			<%= f.hidden_field :group_ids, :value => params[:id] %>
 		    <%= f.label :text, "New message", :class => 'block' %>
 		    <%= f.text_area :text, :size => '70x3', :class => 'field' %>
 			<%= f.submit "Send", :class => 'button' %>	    
@@ -16,7 +16,7 @@
 
 	 	<% if !@events.empty? -%>
 			<% @events.each do |e| -%>
-			   	<%= render :partial => 'users/message_item', :locals => { :e => e } %>
+			   	<%= render :partial => 'events/message_item', :locals => { :e => e } %>
 			<% end -%>
 		<% else -%>
 			No activity.

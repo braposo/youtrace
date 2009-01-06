@@ -1,4 +1,0 @@
-<div class="message">
-	<div class="message-sender"><strong><%= link_to_unless(e.user == current_user, e.user.login, user_path(e.user)) %></strong> <%= 'in ' + link_to(e.group.name, group_path(e.group)) unless e.group.nil? %> <small>(<%= time_ago_in_words e.updated_at %> ago) <%= link_to "delete", event_path(e), :method => :delete if e.user == current_user && params[:id] == current_user.login -%></small></div>
-	<div class="message-body"><%= photo_or_gravatar_for(e.user, { :size => '20', :class => 'lol' }) -%> <%=h e.text -%></div>
-</div>

@@ -1,9 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :events
-
-  
   map.resource :sessions
+  map.resources :events
   map.resources :traces
+      
   map.resources :groups do |groups|
     groups.home 'home', :controller => 'groups', :action => 'home', :path_prefix => '/groups/:id'
     groups.members 'members', :controller => 'groups', :action => 'members', :path_prefix => '/groups/:id'

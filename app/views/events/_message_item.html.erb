@@ -1,0 +1,7 @@
+<div class="message">
+	<div class="message-header">
+	<div class="tl"></div><div class="tr"></div><div class="bar"></div>
+	<div class="message-sender"><%= photo_or_gravatar_for(e.user, { :size => '16', :class => 'lol' }) -%> <strong><%= link_to_unless(e.user == current_user, e.user.login, user_path(e.user)) %></strong> <%= 'in ' + link_to('#'+e.groups.first.name, group_path(e.groups.first)) unless e.groups.empty? %> <small>(<%= time_ago_in_words e.created_at %> ago) <%= link_to "delete", event_path(e), :method => :delete if e.user == current_user && params[:id] == current_user.login -%></small></div>
+	<div class="bl"></div><div class="br"></div><div class="bar"></div></div>
+	<div class="message-body"><%= image_tag 'icons/'+e.format+'.png' %> <%=h e.text -%></div>
+</div>

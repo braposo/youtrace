@@ -5,7 +5,7 @@
 	<div class="yui-u first w65"> 
 		<% form_for Event.new, :html => {:class => 'message-form'} do |f| %>
 			<%= f.error_messages %>
-		    <%= f.label :text, "Leave a message", :class => 'header' %>
+		    <%= f.label :text, "What's up?", :class => 'header' %>
 		    <%= f.text_area :text, :size => '70x3', :class => 'field' %>
 			<%= f.submit "Send it!", :class => 'button' %>	    
 		    <%= f.check_box :private %>
@@ -14,7 +14,7 @@
 		
 	 	<% if !@events.empty? -%>
 			<% @events.each do |e| -%>
-			   	<%= render :partial => 'message_item', :locals => { :e => e } %>
+			   	<%= render :partial => 'events/message_item', :locals => { :e => e } %>
 			<% end -%>
 		<% else -%>
 			No activity.
