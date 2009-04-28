@@ -1,0 +1,18 @@
+<% @actions ||= [] %>
+<div id="actions">
+	<ul class="fl">
+		<% if @actions.include? 'add_trace' -%><li><%= link_to image_tag("icons/new_trace.png", :size => "16x16") + " <span>Add trace</span>", new_trace_path() %><%= image_tag 'actions-separator.png' %></li><% end -%>
+		<% if @actions.include? 'search' -%><li><%= link_to image_tag("icons/search.png", :size => "16x16") + " <span>Search traces</span>", search_path(), :class => 'search' %><%= image_tag 'actions-separator.png' %></li><% end -%>
+		<% if @actions.include? 'create_group' -%><li><%= image_tag "icons/create_group.png", :size => "16x16" %> <%= link_to "Create group", new_group_path() %></li><% end -%>
+		<% if @actions.include? 'edit_profile' -%><li><%= link_to image_tag("icons/edit_profile.png", :size => "16x16") + " <span>Edit profile</span>", edit_user_path(current_user) -%><%= image_tag 'actions-separator.png' %></li><% end -%>
+		<% if @actions.include? 'bookmark_user' -%><li><%= link_to image_tag("icons/add_book.png", :size => "16x16") + " <span>Bookmark profile</span>", user_bookmark_user_path(:id => current_user, :sub_id => params[:id]) %><%= image_tag 'actions-separator.png' %></li><% end -%>
+		<% if @actions.include? 'bookmark_search' -%><li><%= link_to image_tag("icons/add_book.png", :size => "16x16") + " <span>Bookmark page</span>", user_bookmark_search_path(:id => current_user, :tags => params[:tag]) %><%= image_tag 'actions-separator.png' %></li><% end -%>
+		
+		<% if @actions.include? 'join_group' -%><li><%= link_to "Join", group_join_path(params[:id]) %> group.</li><% end -%>
+		<% if @actions.include? 'delete_group' -%><li><%= image_tag "icons/rm_group.png", :size => "16x16" %> <%= link_to 'Delete this group', group_path(params[:id]), :confirm => 'Delete this group?', :method => :delete %></li><% end -%>
+		<li><%= link_to image_tag("icons/logout.png", :size => "16x16") + " <span>Log out</span>", logout_path() %></li>
+	</ul>
+</div>
+<div class="search-tooltip">
+	<% form_tag search_path do -%><%= label_tag "tags" %><%= text_field_tag "tag", params[:tag], :size => 20, :class => 'text', :autocomplete => 'off' %><%= submit_tag "Search »", :class=>'button' %><% end %>
+</div>

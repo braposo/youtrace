@@ -1,39 +1,37 @@
 <div id="ft">
-	<ul class="first">
-		<li><h3>About</h3></li>
-		<li><%= link_to "What is uTrace?", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "uTrace engine", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Team", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Contact", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Press", about_path, :class => 'nudge' -%></li>
-	</ul>
-	<ul>
-		<li><h3>Account</h3></li>
-		<li><%= link_to "Manage network", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "View traces", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Edit profile", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Change preferences", about_path, :class => 'nudge' -%></li>
-	</ul>
-	<ul>
-		<li><h3>Map</h3></li>
-		<li><%= link_to "Global map", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Add trace", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Search traces", about_path, :class => 'nudge' -%></li>
-	</ul>
-	<ul>
-		<li><h3>Social</h3></li>
-		<li><%= link_to "Search", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Invite", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Create group", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "View tops", about_path, :class => 'nudge' -%></li>
-	</ul>
-	<ul>
-		<li><h3>How to</h3></li>
-		<li><%= link_to "Create account", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Add trace", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Export map", about_path, :class => 'nudge' -%></li>
-		<li><%= link_to "Invite friends", about_path, :class => 'nudge' -%></li>
-	</ul>
-	<div class="cf"></div>
-	<div class="disclaimer"><strong>Youtrace Social Platform</strong> is a <abbr title="Department of Informatics Engineering of the University of Coimbra">University of Coimbra</abbr> project. All rights reserved.</div>
+	<div class="ft-left"></div>
+	<div class="ft-content">
+		<ul class="first">
+			<li><h3>About</h3></li>
+			<li><%= link_to "What is uTrace?", about_path, :class => 'nudge' -%></li>
+			<li><%= link_to "uTrace engine", about_path, :class => 'nudge' -%></li>
+			<li><%= link_to "Team", about_path, :class => 'nudge' -%></li>
+			<li><%= link_to "Contact", about_path, :class => 'nudge' -%></li>
+			<li><%= link_to "Press", about_path, :class => 'nudge' -%></li>
+		</ul>
+		<ul>
+			<li><h3>Account</h3></li>
+			<li><%= link_to "Invite friends", current_user.nil?? login_path : user_home_path(current_user), :class => 'nudge' -%></li>
+			<li><%= link_to "Add trace", current_user.nil?? login_path : new_trace_path, :class => 'nudge' -%></li>
+			<li><%= link_to "Search trace", current_user.nil?? login_path : search_path, :class => 'nudge' -%></li>
+			<li><%= link_to "Edit profile", current_user.nil?? login_path : edit_user_path(current_user), :class => 'nudge' -%></li>
+			<li><%= link_to "Change preferences", current_user.nil?? login_path : user_prefs_path(current_user), :class => 'nudge' -%></li>
+		</ul>
+		<ul>
+			<li><h3>How to</h3></li>
+			<li><%= link_to "Create account", howto_path, :class => 'nudge' -%></li>
+			<li><%= link_to "Add trace", howto_path, :class => 'nudge' -%></li>
+			<li><%= link_to "Export map", howto_path, :class => 'nudge' -%></li>
+			<li><%= link_to "Invite friends", howto_path, :class => 'nudge' -%></li>
+		</ul>
+		<ul>
+			<li><h3>Legal</h3></li>
+			<li><%= link_to "Privacy policy", about_path, :class => 'nudge' -%></li>
+			<li><%= link_to "Licence", about_path, :class => 'nudge' -%></li>
+		</ul>
+		<div class="cf"></div>
+		<div class="disclaimer"><strong>Youtrace Social Platform</strong> is a <abbr title="Department of Informatics Engineering of the University of Coimbra">University of Coimbra</abbr> project. All rights reserved.</div>
+	</div>
+	<div class="ft-right"></div>
+	
 </div>

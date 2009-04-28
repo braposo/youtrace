@@ -1,28 +1,57 @@
-<div class="yui-g first w100"> 
-	<h1><%= @trace.name %></h1>
-	<h2>Viewing trace details.</h2>
+<div class="tabs">
+	<span class="back"><%= link_to "&larr; Back", :back %></span>
+	<span class="active">Trace: <strong><%= @trace.name %></strong></span>
+</div>
+<div class="yui-g main"> 
 	<div class="yui-u first"> 
-		<%= label_tag :author, nil, :class => 'block'  %>
-    	<%= link_to @trace.user.login, user_path(@trace.user) %>
+		<div class="box">
+			<div class="box-left"></div>
+  			<div class="box-header">	
+				<%= image_tag 'mark.png' %>
+				<h1>Trace Details</h1>
+			</div>
+			<div class="box-right"></div>
+			<div class="box-content">
+				<%= label_tag :name, nil, :class => 'desc'  %>
+		    	<%= @trace.name %>
+		
+				<%= label_tag :author, nil, :class => 'desc'  %>
+		    	<%= link_to @trace.user.login, user_path(@trace.user) %>
 
-    	<%= label_tag :description, nil, :class => 'block' %>
-    	<%= @trace.description %>
+		    	<%= label_tag :description, nil, :class => 'desc' %>
+		    	<%= @trace.description %>
+
+				<% # label_tag :group, nil, :class => 'block' %>
+				<% #for group in @trace.groups -%>
+					<% # group.name -%>
+				<% #end -%>
+
+				<%= label_tag :tags, nil, :class => 'desc' %>
+				<% for tag in @trace.tags -%>
+					<%= link_to tag.name, named_search_path(tag.name), :class => 'tag' %>
+				<% end -%>
+
+				<%= label_tag :kind, nil, :class => 'desc' %>
+				<%= @trace.kind %>
+
+				<%= label_tag :vehicle, nil, :class => 'desc' %>
+				<%= @trace.vehicle || "n/a" %>
+
+				<%= label_tag :device, nil, :class => 'desc' %>
+				<%= @trace.device || "n/a" %>
+			</div>
+		</div>
+	</div>
+	<div class="yui-u"> 
+		<div class="box">
+			<div class="box-left"></div>
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png' %>
+				<h1>Preview</h1>
+			</div>
+			<div class="box-right"></div>
+			<div class="box-content"><div id="map"></div></div>
+		</div>
 		
-		<%= label_tag :group, nil, :class => 'block' %>
-		<% for group in @trace.groups -%>
-			<%= group.name -%>
-		<% end -%>
-		
-		<%= label_tag :kind, nil, :class => 'block' %>
-		<%= @trace.kind %>
-		
-		<%= label_tag :vehicle, nil, :class => 'block' %>
-		<%= @trace.vehicle || "n/a" %>
-		
-		<%= label_tag :device, nil, :class => 'block' %>
-		<%= @trace.device || "n/a" %>
-	</div> 
-	<div class="yui-u first"> 
-		
-	</div> 
+	</div>  
 </div>

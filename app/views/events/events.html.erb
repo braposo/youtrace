@@ -1,0 +1,5 @@
+<% @events.each do |e| -%>
+   	<%= render :partial => 'events/message_item', :locals => { :e => e } %>
+<% end -%>
+
+<%= will_paginate @events, :page_links => false, :previous_label => "«", :next_label => "»" %>

@@ -3,43 +3,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>YouTrace Social Platform</title>
+    <title><%= @title %> uTrace</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <%= stylesheet_link_tag "reset-fonts-grids.css" %>
 	<%= stylesheet_link_tag "main"  %>
-    <% if controller.action_name == "map" || controller.action_name == "traces" -%>
+    <% if controller.action_name == "map" || controller.action_name == "traces" || controller.action_name == "show" || controller.controller_name == "traces" -%>
     <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA3nav32DtbW5MFnDtJpeZZBRopN2rk1zMLE79IKq4tyYku6rrDBStxV7sgGMzdav5bgwGsZXhQ1W5UA"></script>
-    <script type="text/javascript">
-        google.load("maps", "2.x");
-        
-        // Call this function when the page has been loaded
-        function initialize() {
-            var map = new google.maps.Map2(document.getElementById("map"));
-            map.setCenter(new google.maps.LatLng(40.203329,-8.405614), 13);
-            map.addControl(new GLargeMapControl());
-            map.addControl(new GMapTypeControl());
-            //map.enableScrollWheelZoom();
-        }
-        google.setOnLoadCallback(initialize);
-    </script>
 	<% end -%>
+	<%= yield :headers %>
   </head>
-  <body onunload="GUnload()">
-    <div id="doc3" class="yui-t2">
+  <body>
+    <div id="doc3" class="yui-t1">
       <%= render :partial => "home/header" -%>
       <div id="bd"> 
-        <%= flash_messages -%>
+		<%= render :partial => "home/actions" -%>
+		<%= render :partial => "home/tips" -%>
+		<%= flash_messages -%>
         <div id="yui-main">
           <div class="yui-b">
-            <div class="yui-ge">
-              <div class="yui-u first main">
-                <%= render :partial => "home/tips" -%>
-                <%= yield -%>
-              </div>
-              <div class="yui-u sidebar">
-                <%= render :partial => "home/sidebar" -%>
-              </div>
-            </div> 
+            <%= yield -%>
           </div> 
         </div> 
         <div class="yui-b profile_menu">
@@ -49,5 +31,7 @@
       <%= render :partial => "home/footer" -%>
     </div>
   </body>
-  <%= javascript_include_tag "jquery", "jquery.jparallax", "application" %>
+  <%= javascript_include_tag "jquery" %>
+  <%= yield :footers -%>
+  <%= javascript_include_tag "jquery-ui", "jquery.jparallax", "jquery.tag", "jquery.hotkeys", "mapstraction", "application" %>
 </html>

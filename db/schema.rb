@@ -9,7 +9,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081228190959) do
+ActiveRecord::Schema.define(:version => 20090421005002) do
+
+  create_table "bookmarks", :force => true do |t|
+    t.string   "name"
+    t.string   "tags"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bookmarks_users", :id => false, :force => true do |t|
+    t.integer "bookmark_id"
+    t.integer "user_id"
+  end
 
   create_table "devices", :force => true do |t|
     t.string   "brand"
@@ -72,19 +84,40 @@ ActiveRecord::Schema.define(:version => 20081228190959) do
 
   add_index "subscriptions", ["authorized", "subscriber_id", "user_id"], :name => "index_subscriptions_on_user_id_and_subscriber_id_and_authorized"
 
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "taggable_type"
+    t.string   "context"
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["context", "taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
+
   create_table "traces", :force => true do |t|
     t.integer  "user_id"
     t.integer  "device_id"
     t.integer  "vehicle_id"
     t.string   "name"
     t.text     "description"
-    t.string   "kind",        :default => "Road"
-    t.decimal  "length",      :default => 0.0
+    t.string   "kind",              :default => "Road"
+    t.decimal  "length",            :default => 0.0
     t.string   "file"
-    t.integer  "status",      :default => 0
-    t.integer  "privacy",     :default => 0
+    t.integer  "status",            :default => 0
+    t.integer  "privacy",           :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   create_table "users", :force => true do |t|

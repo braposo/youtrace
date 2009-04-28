@@ -1,32 +1,54 @@
-<h1>Information</h1>
-<div class="yui-gf first w100 info"> 
+<div class="tabs">
+	<span class="back"><%= link_to "&larr; Back", :back %></span>
+	<span class="active">Edit Profile</span>
+</div>
+<div class="yui-g info main"> 
 	<% form_for(@user) do |f| %>
 	<div class="yui-u first"> 
-	 	<%= photo_or_gravatar_for @user, {:size => 100} %>
-		<div class="photo_upload"><%= button_to "Upload new photo", :class => "button" %>
-		or <%= link_to "delete", user_info_path(params[:id]) %> this one.</div>
+		<div class="box">
+			<div class="box-left"></div>
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png' %>
+				<h1>Personal Details</h1>
+			</div>
+			<div class="box-right"></div>
+			<div class="box-content">
+				<div class="photo_upload">
+					<%= photo_or_gravatar_for @user, {:size => 100} %>
+					<div class="aditional"><%= button_to "Upload new photo", :class => "button" %> or <%= link_to "delete", user_info_path(params[:id]) %> this one.</div>
+				</div>
+
+				<%= f.error_messages %>
+				<ul class="details">
+		  	  		<li><div>Email</div> <%= @user.email -%> <small>If this is no longer your email, please contact us</small></li>
+		  	  		<li><div>Name</div> <%= f.text_field :name -%></li>
+		  	  		<li><div>Location</div> <%= f.text_field :location_lat, :size => 10 -%><%= f.text_field :location_lon, :size => 10 -%></li>
+		  	  		<li><div>Birthday</div> <%= f.date_select :birthdate, :start_year => 1930, :end_year => Time.now.year - 5, :order => [:day, :month, :year] -%></li>
+		  	  		<li><div>Gender</div> <%= f.radio_button :gender, "Male" -%><%= f.label :gender_male, "Male" %> <%= f.radio_button :gender, "Female" -%><%= f.label :gender_female, "Female" %></li>
+		  	  	</ul>			
+				<div class="cf"><%= f.submit "Update", :class => "button" %> or <%= link_to "cancel", user_info_path(params[:id]) %></div>
+			</div>
+		</div>
 	</div>
-	<div class="yui-u first w65"> 
-		
-		  	<%= f.error_messages %>
-			<table class="details">
-				<tr><th>Email:</th><td><%= @user.email -%> <small>If this is no longer your email, please contact us</small></td></tr>
-				<tr><th>Name:</th><td><%= f.text_field :name -%></td></tr>
-				<tr><th>Location:</th><td><%= f.text_field :location_lat, :size => 10 -%><%= f.text_field :location_lon, :size => 10 -%></td></tr>
-				<tr><th>Birthday:</th><td><%= f.date_select :birthdate, :start_year => 1930, :end_year => Time.now.year - 5 -%></td></tr>
-				<tr><th>Gender:</th><td><%= f.radio_button :gender, "Male" -%><%= f.label :gender_male, "Male" %> <%= f.radio_button :gender, "Female" -%><%= f.label :gender_female, "Female" %></td></tr>
-			</table>
-			
-		
-	</div> 
-	<div class="cf"><%= f.submit "Update", :class => "button" %> or <%= link_to "cancel", user_info_path(params[:id]) %></div>
 	<% end %>
-</div>
-<div class="yui-g first w100">
-	<div class="yui-u first">
-		<h1>Vehicle details <small><%= link_to 'How is this useful?', root_path -%></small></h1>
-	</div>
 	<div class="yui-u">
-		<h1>GPS device <small><%= link_to 'How is this useful?', root_path -%></small></h1>
+		<div class="box">
+			<div class="box-left"></div>
+			<div class="box-header">	
+				<%= image_tag 'mark.png' %>
+				<h1>Vehicle details</h1>
+			</div>
+			<div class="box-right"></div>
+			<div class="box-content"></div>
+		</div>
+		<div class="box">
+			<div class="box-left"></div>
+			<div class="box-header">	
+				<%= image_tag 'mark.png' %>
+				<h1>GPS device</h1>
+			</div>
+			<div class="box-right"></div>
+			<div class="box-content"></div>
+		</div>
 	</div>
 </div>

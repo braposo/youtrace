@@ -42,11 +42,7 @@ class EventsController < ApplicationController
 
   # POST /events
   # POST /events.xml
-  def create
-    if !params[:event][:group_ids].nil?
-      params[:event][:format] = "grp_msg"
-    end
-    
+  def create   
     @event = Event.new(params[:event])
     
     respond_to do |format|

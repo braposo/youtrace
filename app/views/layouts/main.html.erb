@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>YouTrace Social Platform</title>
+    <title><%= @title %> uTrace</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <%= stylesheet_link_tag "reset-fonts-grids.css" %>
     <%= stylesheet_link_tag "main"  %>
@@ -25,21 +25,21 @@
 	<% end -%>
   </head>
   <body onunload="GUnload()">
-    <div id="doc3" class="yui-t7">
+    <div id="doc3" class="yui-t3">
       <%= render :partial => "home/header" -%>
       <div id="bd"> 
         <%= flash_messages -%>  
-        <div class="yui-ge">
-          <div class="yui-u main first">
+		<div id="yui-main">
+          <div class="yui-b main">
             <%= yield -%>
-          </div>
-          <div class="yui-u sidebar">
-            <%= render :partial => "home/sidebar" -%>
-          </div>
+          </div> 
+        </div> 
+        <div class="yui-b sidebar">
+          <%= render :partial => "home/sidebar" -%>
         </div>
       </div> 
       <%= render :partial => "home/footer" -%>
     </div>
   </body>
-  <%= javascript_include_tag "jquery", "jquery.jparallax", "application" %>
+  <%= javascript_include_tag "jquery", "jquery.jparallax", "jquery.simplemodal", "application" %>
 </html>

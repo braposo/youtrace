@@ -1,0 +1,26 @@
+<div class="item <%= css %>">
+	<%= photo_or_gravatar_for u, { :size => '40', :class => 'fl' } %>
+	<div class="fl">
+		<%= link_to u.login, user_path(u), :class => 'name' -%>
+   		<% if s == 'pending' -%>
+   			<small>Waiting for confirmation.</small>
+		<% else %>
+			<small>Information about profile</small>
+   		<% end -%>
+	</div>
+	<div class="item-actions fr">
+		<% if s == 'sub' -%>
+			<%= link_to(image_tag('icons/mini/delete.gif', :size => "10x10"), user_delete_path(:sub_id => u), :title => "Remove profile", :confirm => "Remove this profile?", :method => :delete) %>
+		<% elsif s == 'follower' %>
+			(<%= link_to "pause", user_pause_path(:sub_id => u) %> | <%= link_to 'delete', user_delete_path(:sub_id => u), :confirm => 'Are you sure?' %>)
+		<% elsif s == 'reqs' %>	
+			<%= link_to(image_tag('icons/mini/accept.gif', :size => "10x10"), user_authorize_path(:sub_id => u), :title => "Authorize request", :confirm => "Authorize this request?") %> <%= link_to(image_tag('icons/mini/delete.gif', :size => "10x10"), user_delete_path(:sub_id => u), :title => "Cancel request", :confirm => "Cancel this request?", :method => :delete) %>
+		<% elsif s == 'pending' %>	
+			<%= link_to(image_tag('icons/mini/delete.gif', :size => "10x10"), user_delete_path(:sub_id => u), :title => "Cancel request", :confirm => "Cancel this request?", :method => :delete) %>
+		<% elsif s == 'grp_admin' %>	
+			(<%= link_to 'delete', group_leave_path(params[:id],:user_id => u), :confirm => 'Are you sure?' %>)	
+		<% else %>
+			<%= time_ago_in_words u.created_at %>
+		<% end %>
+	</div>
+</div>

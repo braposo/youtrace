@@ -1,20 +1,26 @@
-<h1>Sign up as a new user</h1>
-<div class="login box">
-  <% @user.password = @user.password_confirmation = nil %>
-  <%= error_messages_for :user %>
-  <% form_for :user, :url => users_path do |f| -%>
-    <%= label_tag 'username' %>
-    <%= f.text_field :login %>
-  
-    <%= label_tag 'email' %>
-    <%= f.text_field :email %>
-  
-    <%= label_tag 'password' %>
-    <%= f.password_field :password %>
-  
-    <%= label_tag 'password_confirmation', 'Confirm Password' %>
-    <%= f.password_field :password_confirmation %>
-  
-    <%= submit_tag 'Sign up', :class => 'button' %> or <%= link_to "cancel", root_path -%>
-  <% end -%>
+<div class="yui-g">
+  	<div class="yui-u first">
+		<div class="login-content">  
+		  <h1>Sign up as a new user</h1>
+		  <% @user.password = @user.password_confirmation = nil %>
+		  <%= error_messages_for :user %>
+		  <% form_for :user, :url => users_path do |f| -%>
+
+		    <%= label_tag 'email' %>
+		    <%= f.text_field :email, :class => "big" %>
+
+		    <%= label_tag 'password' %>
+		    <%= f.password_field :password, :class => "big" %>
+
+		    <%= label_tag 'password_confirmation', 'Confirm Password' %>
+		    <%= f.password_field :password_confirmation, :class => "big" %>
+
+			<%= label_tag 'username', 'URL <small>(You can change this later)</small>' %>
+		    <span class="big grey">utrace.com/users/</span> <%= f.text_field :login, :class => "big url" %>
+
+		    <div><%= submit_tag 'Sign up', :class => 'button' %></div>
+		  <% end -%>
+		</div>
+	</div>
+	<div class="yui-u"></div>
 </div>

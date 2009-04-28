@@ -1,0 +1,70 @@
+<div class="tabs">
+	<span class="back"><%= link_to "&larr; Back", :back %></span>
+	<span class="active">Bookmarks</span>
+</div>
+<div class="yui-gc main">
+  	<div class="yui-u first">
+		<div class="box">
+			<div class="box-left"></div>
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png' %>
+				<h1>Bookmarks</h1>
+			</div>
+			<div class="box-right"></div>
+			<div class="box-content">
+				<% if !@profiles.empty? -%>
+					<h2>You have <strong><%= @profiles.size %></strong> profiles bookmarked. Why don't you <%= link_to "extend", social_path %> your network?</h2>
+					<div class="profile-list">
+					<% @profiles.each do |p| -%>
+						<% css = cycle("fl", "fr") -%>
+						<% if p.class == User %>
+					   		<%= render :partial => 'user_item', :locals => { :u => p, :s => 'sub', :css => css}%>
+						<% else %>
+							<%= render :partial => 'page_item', :locals => { :b => p, :s => 'sub', :css => css}%>
+						<% end %>
+					<% end -%>
+					</div>
+					<div class="cf"></div>
+				<% else -%>
+					<h2>Ohhhh, you don't have subscriptions. Maybe a visit to <%= link_to "social", social_path %> section?</h2>
+				<% end -%>
+			</div>
+		</div>
+	</div>
+	<div class="yui-u"> 
+		<% if ((!@pending_reqs.empty? || !@pending_subs.empty?) && is_own?(params[:id])) -%>
+			<div class="box">
+				<div class="box-left"></div>
+	  			<div class="box-header">	
+					<%= image_tag 'mark.png' %>
+					<h1>Requests</h1>
+				</div>
+				<div class="box-right"></div>
+				<div class="box-content">
+					<h2>You have <strong><%= @pending_reqs.size + @pending_subs.size %></strong> pending requests.</h2>
+					<div class="profile-list">
+						<% @pending_reqs.each do |u| -%>
+			   				<%= render :partial => 'user_item', :locals => { :u => u, :s => 'reqs', :css => 'fl'}%>
+						<% end -%>
+						<% @pending_subs.each do |u| -%>
+			   				<%= render :partial => 'user_item', :locals => { :u => u, :s => 'pending', :css => 'fl' }%>
+						<% end -%>
+					</div>
+					<div class="cf"></div>
+				</div>
+			</div>
+		<% end -%>
+		<div class="box">
+			<div class="box-left"></div>
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png' %>
+				<h1>Search </h1>
+			</div>
+			<div class="box-right"></div>
+			<div class="box-content"></div>
+		</div>
+	</div>
+</div>
+
+
+

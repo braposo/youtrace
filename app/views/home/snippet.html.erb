@@ -1,0 +1,15 @@
+
+	<li class="menu-header group"><%= @group.name %></li>
+	<li class="menu-item group first"><%= link_to_unless_current("Dashboard", group_path(params[:id])){ |content| content_tag("span", content, :class => 'current group')} -%></li>
+	<li class="menu-item group"><%= link_to_unless_current("Members", group_members_path(params[:id])){ |content| content_tag("span", content, :class => 'current group')} -%></li>
+	<li class="menu-item group"><%= link_to_unless_current("Traces", group_traces_path(params[:id])){ |content| content_tag("span", content, :class => 'current group')} -%></li>
+	<li class="menu-item group"><%= link_to_unless_current("Info", group_info_path(params[:id])){ |content| content_tag("span", content, :class => 'current group')} -%></li>
+<% end %>
+
+<% if logged_in? -%>
+  <% if is_own? params[:id] || !in_controller?(controller,'users') || !in_controller?(controller,'groups') -%>
+    <li class="menu-item user"><%= image_tag 'menu/prefs.png' %><%= link_to_unless_current("Preferences", user_prefs_path(current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+  <% else -%>
+    <li class="menu-item user"><%= image_tag 'menu/back.png' %><%= link_to_unless_current("Back to my profile!", user_path(current_user)){ |content| content_tag("span", content, :class => 'current')} -%></li>
+  <% end -%>
+<% end -%>

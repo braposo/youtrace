@@ -1,10 +1,19 @@
-<div id='map'></div>
-<div class="yui-g first w100"> 
-	<h1>Recent traces</h1>
-	<div class="yui-u first"> 
-		<div class="item-block">
+<div class="tabs">
+	<span class="back"><%= link_to "&larr; Back", :back %></span>
+	<span class="active">Traces</span>
+</div>
+<div class="yui-g main">
+  <div class="yui-u first">
+	<div class="box">
+		<div class="box-left"></div>
+  		<div class="box-header">	
+			<%= image_tag 'mark.png' %>
+			<h1>Traces</h1>
+		</div>
+		<div class="box-right"></div>
+		<div class="box-content">
 			<% if !@traces.empty? -%>
-				<% @s = if_own?(@user.login)? 'owner' : 'user' %>
+				<% @s = is_own?(@user.login)? 'owner' : 'user' %>
 				<h2>You have submitted <strong><%= @traces.size %></strong> traces. Why don't you <%= link_to "add", new_trace_path %> some more traces?</h2>
 				<div class="item-list">
 				<% @traces.each do |t| -%>
@@ -15,8 +24,18 @@
 				<h2>It seems that you don't have traces. Want to <%= link_to "add", new_trace_path %> a new one?</h2>
 			<% end -%>
 		</div>
-	</div> 
-	<div class="yui-u first"> 
-		
-	</div> 
+	</div>
+  </div>
+  <div class="yui-u">
+	<div class="box">
+		<div class="box-left"></div>
+  		<div class="box-header">	
+			<%= image_tag 'mark.png' %>
+			<h1>Personal map</h1>
+		</div>
+		<div class="box-right"></div>
+		<div class="box-content"><div id='map'></div></div>
+	</div>
+    
+  </div>
 </div>

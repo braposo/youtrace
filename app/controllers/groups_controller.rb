@@ -12,11 +12,11 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.xml
   def show
-    @group = active_group
-    add_breadcrumb @group.name, group_path(@group)
-    add_breadcrumb "Dashboard"
-    
+    @group = active_group    
     @events = @group.get_all_events
+    @title = "#{@group.name} group |"
+    
+    @actions << 'delete_group' if @group.is_owned_by? current_user
     
     respond_to do |format|
       format.html # show.html.erb

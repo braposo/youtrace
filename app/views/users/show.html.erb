@@ -1,27 +1,57 @@
-<% if @user.nil? -%>
-  <h1>User not found!</h1>
-<% else -%>
-<div class="yui-gc w100"> 
-	<div class="yui-u first w65"> 
-		<% form_for Event.new, :html => {:class => 'message-form'} do |f| %>
-			<%= f.error_messages %>
-		    <%= f.label :text, "What's up?", :class => 'header' %>
-		    <%= f.text_area :text, :size => '70x3', :class => 'field' %>
-			<%= f.submit "Send it!", :class => 'button' %>	    
-		    <%= f.check_box :private %>
-			<%= f.label :private %>    
-		<% end if if_own? params[:id] %>
-		
-	 	<% if !@events.empty? -%>
-			<% @events.each do |e| -%>
-			   	<%= render :partial => 'events/message_item', :locals => { :e => e } %>
-			<% end -%>
-		<% else -%>
-			No activity.
-		<% end -%>
-	</div> 
-	<div class="yui-u w35"> 
-		<h1>Overview</h1>
-	</div> 
+<div class="tabs">
+	<span class="back"><%= link_to "&larr; Back", :back %></span>
+	<span class="active">Dashboard</span>
 </div>
-<%  end -%>
+<div class="yui-g main">
+  <div class="yui-u first">
+	<div class="box">
+		<div class="box-left"></div>
+  		<div class="box-header">	
+			<%= image_tag 'mark.png' %>
+			<h1>Latest Activity</h1>
+		</div>
+		<div class="box-right"></div>
+		<div class="box-content">
+  	   		<% form_for Event.new, :html => {:class => 'message-form'} do |f| %>
+  	   			<%= f.error_messages %>
+  	   		    <%= f.text_area :text, :size => '70x3' %>
+  	   			<%= f.submit "Change Status", :class => 'button' %>	    
+  	   		    <%= f.check_box :private, :class => 'bottom' %>
+	   			<%= f.label :private, "Keep this private" %> 
+  	   		<% end %>
+       		
+  	   		<% if !@events.empty? -%>
+				<div id="events-list">
+  	   				<% @events.each do |e| -%>
+  	   				   	<%= render :partial => 'events/message_item', :locals => { :e => e } %>
+  	   				<% end -%>
+					
+					<%= will_paginate @events, :page_links => false, :previous_label => "«", :next_label => "»" %>
+				</div>
+  	   		<% else -%>
+  	   			No activity.
+  	   		<% end -%>
+		</div>
+	</div>
+  </div>
+  <div class="yui-u">
+	<div class="box">
+		<div class="box-left"></div>
+  		<div class="box-header">	
+			<%= image_tag 'mark.png' %>
+			<h1>Overview</h1>
+		</div>
+		<div class="box-right"></div>
+		<div class="box-content"></div>
+	</div>
+	<div class="box">
+		<div class="box-left"></div>
+  		<div class="box-header">	
+			<%= image_tag 'mark.png' %>
+			<h1>Achievements</h1>
+		</div>
+		<div class="box-right"></div>
+		<div class="box-content"></div>
+	</div>
+  </div>
+</div>

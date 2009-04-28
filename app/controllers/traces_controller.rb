@@ -18,6 +18,7 @@ class TracesController < ApplicationController
     @trace = Trace.find(params[:id])
     add_breadcrumb "Traces", traces_path
     add_breadcrumb @trace.name
+    @title =  @trace.name + " | Traces |"
     
     respond_to do |format|
       format.html # show.html.erb
@@ -32,10 +33,8 @@ class TracesController < ApplicationController
     @user = current_user 
     @vehicles = @user.vehicles
     @devices = @user.devices
-    add_breadcrumb @user.login, user_path(@user)
-    add_breadcrumb "Traces", user_traces_path(@user)
-    add_breadcrumb "Add trace"
     
+    @title = "Add trace | #{@user.login} |"
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @trace }
@@ -61,7 +60,8 @@ class TracesController < ApplicationController
         format.html { redirect_to(user_traces_path(current_user)) }
         format.xml  { render :xml => @trace, :status => :created, :location => @trace }
       else
-        format.html { render :action => "new" }
+        flash[:error] = 'There were some problems saving the trace: <ul>'+@trace.errors.collect{|k,v| "<li>The #{k} #{v}</li>"}.to_s + "</ul>"
+        format.html { redirect_to :action => "new" }
         format.xml  { render :xml => @trace.errors, :status => :unprocessable_entity }
       end
     end

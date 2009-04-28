@@ -47,4 +47,5 @@ module ApplicationHelper
       "<img class=\"#{options[:class]}\" alt=\"#{options[:alt]}\" width=\"#{options[:size]}\" height=\"#{options[:size]}\" src=\"#{image_path('groups/default.png')}\" />"
     end
   end
+  
 end

@@ -1,5 +1,3 @@
-<div class="breadcrumbs"><%= breadcrumbs %></div>
-
 <% @tips ||= [] %>
 <% if @tips.include? 'return_profile'-%>
   <div class="tips">You are viewing other user's profile. To return to your profile <%= link_to "click here", user_path(current_user) -%>.</div>

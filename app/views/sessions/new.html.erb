@@ -1,15 +1,14 @@
-<h1>Login</h1>
-<div class="login box">
+<div class="login-content">
+  <h1>Login</h1>
   <% form_tag sessions_path do -%>
     <%= label_tag 'username' %>
-    <%= text_field_tag 'login', @login %>
+    <%= text_field_tag 'login', @login, :class => 'big' %>
         
     <%= label_tag 'password' %>
-    <%= password_field_tag 'password', nil %>
+    <%= password_field_tag 'password', nil, :class => 'big' %>
         
-    <%= label_tag 'remember_me', 'Remember me' %>
-    <%= check_box_tag 'remember_me', '1', @remember_me %>
+    <div style="margin-top: 20px"><%= check_box_tag 'remember_me', '1', @remember_me, :class => 'checkbox' %> <%= label_tag 'remember_me', 'Keep me logged in the future', :class => 'medium' %> </div>
         
-    <div><%= submit_tag 'Log in', :class => 'button' %> or <%= link_to "recover your password", users_path -%></div>
+    <%= submit_tag 'Log in', :class => 'button fl' %> <%= link_to "Lost your password?", users_path, :class => 'fl login' -%>
   <% end -%>
 </div>

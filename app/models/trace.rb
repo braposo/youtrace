@@ -6,6 +6,15 @@ class Trace < ActiveRecord::Base
   
   after_create :generate_events
   
+  validates_presence_of     :name
+  validates_length_of       :name,    :within => 6..40
+  validates_uniqueness_of   :name
+  
+  has_attached_file :file
+  validates_attachment_presence :file
+  
+  acts_as_taggable_on :tags
+  
   private
   def generate_events
     if self.group_ids.empty?

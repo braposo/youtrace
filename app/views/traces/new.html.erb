@@ -1,46 +1,73 @@
-<div class="yui-g first w100"> 
-	<h1>Add new trace</h1>
-	<h2>When adding a new trace it will be instantly available for visualization, but remain temporary until processed by <strong>uTrace</strong> engine</h2>
-	<div class="yui-u first"> 
-		<% form_for(@trace) do |f| %>
-		  	<%= f.error_messages %>
-		  	<%= f.label :name, nil, :class => 'block'  %>
-	    	<%= f.text_field :name, :class => 'field' %>
+<div class="tabs">
+	<span class="back"><%= link_to "&larr; Back", :back %></span>
+	<span class="active">Add Trace</span>
+</div>
+<div class="yui-g main">
+	<div class="yui-u first">
+		<div class="box">
+			<div class="box-left"></div>
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png' %>
+				<h1>Trace Details</h1>
+			</div>
+			<div class="box-right"></div>
+			<div class="box-content">
+				<h2>When adding a new trace it will be instantly available for visualization, but remain temporary until processed by <strong>uTrace</strong> engine</h2>
+				<% form_for(@trace, :html => { :multipart => true }) do |f| %>
+				  	<%= f.error_messages %>
+				  	<%= f.label :name, nil, :class => 'block'  %>
+					<%= f.text_field :name, :class => 'field' %>
 
-	    	<%= f.label :description, nil, :class => 'block' %>
-	    	<%= f.text_area :description, :rows => '2', :class => 'field' %>
-			
-			<%= f.label :group, nil, :class => 'block' %>
-			<% # f.collection_select :group_ids, @user.groups.find(:all), :id, :name, { :selected => @user.group_ids, :include_blank => '- Select One -' }, { :multiple => true, :name => 'trace[group_ids][]', :class => 'field'} %>
-			<% for group in @user.groups.find(:all) -%>
-				<%= check_box_tag "trace[group_ids][]", group.id, @trace.groups.include?(group) -%>
-				<%= group.name -%>
-			<% end -%>
-			
-			<%= f.label :kind, nil, :class => 'block' %>
-			<%= f.select :kind, ['Road', 'Freeway', 'Offroad', 'Sidewalk', 'Water'], :class => 'field' %>
-			
-			<%= f.label :vehicle, nil, :class => 'block' %>
-			<% if !@vehicles.empty? -%>
-				<%= f.collection_select :vehicle, @vehicles, :id, :name, :class => 'field' %>
-			<% else %>
-				<h2>Please <%= link_to "associate", edit_user_path(@user) -%> a vehicle to this account</h2>
-			<% end %>
-			<% # f.select :vehicle, ['Car', 'Bicycle', 'Foot', 'Boat', 'Motocycle'], :include_blank => '- Select One -', :class => 'field' %>
-			
-			<%= f.label :device, nil, :class => 'block' %>
-			<% if !@devices.empty? -%>
-				<%= f.collection_select :vehicle, @devices, :id, :name, :class => 'field' %>
-			<% else %>
-				<h2>Please <%= link_to "associate", edit_user_path(@user) -%> a GPS device to this account</h2>
-			<% end %>
-			<%= f.hidden_field :user_id, :value => @user.id %>
-		  <p>
-		    <%= f.submit "Save trace", :class => "button" %> or <%= link_to "go back", user_path(@user) %> to my profile
-		  </p>
-		<% end %>
+					<%= f.label :file, nil, :class => 'block'  %>
+					<%= f.file_field :file, :class => 'field' %>
+
+					<%= f.label 'Tags <small>(separated with spaces)</small>', nil, :class => 'block'%>
+					<%= f.text_field :tag_list, :class => 'field', :autocomplete => "off" %>
+					
+					<%= f.label :description, nil, :class => 'block' %>
+					<%= f.text_area :description, :rows => '2', :class => 'field' %>
+
+					<% # f.label :group, nil, :class => 'block' %>
+					<% # f.collection_select :group_ids, @user.groups.find(:all), :id, :name, { :selected => @user.group_ids, :include_blank => '- Select One -' }, { :multiple => true, :name => 'trace[group_ids][]', :class => 'field'} %>
+					<% #for group in @user.groups.find(:all) -%>
+						<% #check_box_tag "trace[group_ids][]", group.id, @trace.groups.include?(group) -%>
+						<% # group.name -%>
+					<% #end -%>
+
+					<%= f.label :kind, nil, :class => 'block' %>
+					<%= f.select :kind, ['Road', 'Freeway', 'Offroad', 'Sidewalk', 'Water'], :class => 'field' %>
+
+					<%= f.label :vehicle, nil, :class => 'block' %>
+					<% if !@vehicles.empty? -%>
+						<%= f.collection_select :vehicle, @vehicles, :id, :name, :class => 'field' %>
+					<% else %>
+						<h2>Please <%= link_to "associate", edit_user_path(@user) -%> a vehicle to this account</h2>
+					<% end %>
+
+					<%= f.label :device, nil, :class => 'block' %>
+					<% if !@devices.empty? -%>
+						<%= f.collection_select :vehicle, @devices, :id, :name, :class => 'field' %>
+					<% else %>
+						<h2>Please <%= link_to "associate", edit_user_path(@user) -%> a GPS device to this account</h2>
+					<% end %>
+					<%= f.hidden_field :user_id, :value => @user.id %>
+
+				    <%= f.submit "Save trace", :class => "button fl" %> <div class="button fl" id="preview">Preview »</div>
+					
+					<div class="cf"></div>
+				<% end %>
+			</div>
+		</div>
 	</div> 
-	<div class="yui-u first"> 
-		
-	</div> 
+	<div class="yui-u">
+		<div class="box">
+			<div class="box-left"></div>
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png' %>
+				<h1>Preview</h1>
+			</div>
+			<div class="box-right"></div>
+			<div class="box-content"><div id='map'></div></div>
+		</div>
+	</div>
 </div>

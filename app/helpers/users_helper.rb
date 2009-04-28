@@ -90,7 +90,14 @@ module UsersHelper
     end
   end
   
-  def if_own?(user)
+  def is_own?(user)
      current_user.login == user
+  end
+  
+  
+  def is_current?(page)
+    if current_page?(page)
+      "current"
+    end
   end
 end

@@ -1,9 +1,10 @@
-<div class="yui-g first w100">
-	<div class="yui-u first">
+<div class="yui-g box">
+  	<div class="yui-u first">
 		<h1>Latest Users</h1>
 		<ul>
 		  <% @users.each do |u| %>
-		    <%= render :partial => 'users/user_item', :locals => { :u => u, :s => 'default'}%>
+			<% css = cycle("fl", "fr") -%>
+		    <%= render :partial => 'users/user_item', :locals => { :u => u, :s => 'default', :css => css }%>
 		  <% end %>
 		</ul>
 	</div>
@@ -11,7 +12,8 @@
 		<h1>Latest Groups</h1>
 		<ul>
 		  <% @groups.each do |g| %>
-		    <li><%= link_to g.name, group_path(g) -%> <small><%=  time_ago_in_words g.created_at -%></small></li>
+			<% css = cycle("fl", "fr") -%>
+		    <%= render :partial => 'groups/group_item', :locals => { :g => g, :s => 'default', :css => css }%>
 		  <% end %>
 		</ul>
 	</div>
