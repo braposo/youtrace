@@ -5,12 +5,14 @@
 <div class="yui-g main"> 
 	<div class="yui-u first"> 
 		<div class="box">
-			<div class="box-left"></div>
   			<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>Trace Details</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content">
 				<%= label_tag :name, nil, :class => 'desc'  %>
 		    	<%= @trace.name %>
@@ -28,7 +30,7 @@
 
 				<%= label_tag :tags, nil, :class => 'desc' %>
 				<% for tag in @trace.tags -%>
-					<%= link_to tag.name, named_search_path(tag.name), :class => 'tag' %>
+					<%= link_to tag.name, tag_path(tag.name), :class => 'tag' %>
 				<% end -%>
 
 				<%= label_tag :kind, nil, :class => 'desc' %>
@@ -44,14 +46,20 @@
 	</div>
 	<div class="yui-u"> 
 		<div class="box">
-			<div class="box-left"></div>
 	  		<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>Preview</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content"><div id="map"></div></div>
 		</div>
 		
 	</div>  
+</div>
+<div class="box-shadow">
+	<div class="box-shadow-left"></div>
+	<div class="box-shadow-right"></div>
 </div>

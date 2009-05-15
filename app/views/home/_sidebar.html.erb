@@ -1,9 +1,22 @@
-  <div class="login-box">
-    <% if logged_in? -%>
-      <p>You are now logged in as <%= link_to current_user.login, user_path(current_user) %>. (<%= link_to "logout", logout_path, { :title => "Log out" } %>)</p>
-	  <p>Bellow you'll find some shortcuts and tips to the most common actions.</p>
-    <% else -%>
-      Welcome! Please <%= link_to "Log in", login_path, { :title => "Log in", :class => "modal" } %> or <%= link_to "Sign up", signup_path, { :title => "Sign up" } %>
-    <% end -%>
-  </div>
-
+<div class="box">
+	<h1>Why uTrace?</h1>
+	<ul>
+		<li>Brutal</li>
+		<li>Espectacular</li>
+		<li>Lindo</li>
+		<li>Impressionante</li>
+		<li>Maravilhoso</li>
+		<li>Fantástico</li>
+		<li>Inacreditável</li>
+		<li>Brilhante</li>
+		<li>Magnífico</li>
+		<li>Uma obra-prima</li>
+	</ul>
+	<%= link_to "Log in to account", login_path, { :title => "Log in", :class => "modal button" } %> 
+	<%= link_to "Sign up in 20 sec", signup_path, { :title => "Sign up", :class => 'modal button hl' } %>
+</div>
+<%= image_tag 'sidebar-shadow.png' %>
+<div class="follow">
+	<div class="twitter"><%= image_tag 'twitter.png' %> Stay in touch <%= link_to "@youtrace", "http://twitter.com/youtrace" %></div>
+</div>
+<div class="beta">uTrace Social Platform is in <strong>beta</strong> release<br/>Please <a href="#">contact us</a> if you have any suggestion or problem</div>

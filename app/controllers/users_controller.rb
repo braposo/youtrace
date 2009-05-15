@@ -15,13 +15,17 @@ class UsersController < ApplicationController
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
+    @user.activated_at = Time.now.utc
+    @title = "Sign up |"
     success = @user && @user.save
-    if success && @user.errors.empty?
-      redirect_back_or_default('/')
-      flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
-    else
-      flash[:error]  = params[:user].inspect+"We couldn't set up that account, sorry.  Please make shure that all fields are valid."+@user.errors.inspect
-      redirect_to signup_path
+    respond_to do |format|
+      if success && @user.errors.empty?
+        flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+        format.html { redirect_to root_path }
+      else
+        flash[:error]  = "We couldn't set up that account, sorry.  Please make shure that all fields are valid."
+        format.html { render :action => "new", :layout => 'main' }
+      end
     end
   end
 
@@ -89,8 +93,12 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = 'Your profile was successfully updated.'
-        format.html { redirect_to(user_info_path(@user)) }
-        format.xml  { head :ok }
+        if params[:user][:photo].blank?
+          format.html { redirect_to(user_info_path(@user)) }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => 'cropping' } 
+        end
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
@@ -156,9 +164,9 @@ class UsersController < ApplicationController
     redirect_back_or_default(user_bookmarks_path(current_user))
   end
   
-  def bookmark_search
-    current_user.bookmark_search(params[:tags])
-    flash[:notice] = "<strong>#{params[:tags]}</strong> page added to bookmarks"
+  def bookmark_tag
+    current_user.bookmark_tag(params[:tags])
+    flash[:notice] = "<strong>#{params[:tags]}</strong> tag added to bookmarks"
     redirect_back_or_default(user_bookmarks_path(current_user))
   end
   
@@ -168,12 +176,11 @@ class UsersController < ApplicationController
     redirect_to(user_bookmarks_path(current_user))
   end
   
-  def delete_search
+  def delete_tag
     current_user.delete_search(params[:tags])
-    flash[:notice] = "#{params[:tags]} page removed from your bookmarks"
+    flash[:notice] = "#{params[:tags]} tag removed from your bookmarks"
     redirect_to(user_bookmarks_path(current_user))
   end
-  
   
   def authorize
     current_user.authorize_follower(params[:sub_id])
@@ -188,6 +195,19 @@ class UsersController < ApplicationController
     redirect_back_or_default(user_network_path(current_user))
   end
   
+  # POST /users/1/crop
+  def crop
+    @user = User.find_by_login(params[:id])
+
+    if @user.update_attributes(params[:user])
+      @user.photo.reprocess!
+    end
+    
+    redirect_to(user_info_path(@user))
+  end
+  
+  def cropping
+  end
   
   private 
   def active_user

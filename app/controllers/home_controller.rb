@@ -18,7 +18,7 @@ class HomeController < ApplicationController
     @title = "Profiles |"
     
     @users = User.find :all, :conditions => "activated_at IS NOT NULL"
-    @groups = Group.find :all, :conditions => "privacy < 2"
+    @search = Tag.find :all
     
     respond_to do |format|
       format.html # index.html.erb
@@ -34,13 +34,24 @@ class HomeController < ApplicationController
     @title = "About us |"
   end
   
-  def search      
+  def tag      
     @traces = Trace.tagged_with params[:tag], :on => :tags
     @users = []
     
-    @title = "Search |"
+    @title = params[:tag] +" | Tag |"
     
-    @actions << "bookmark_search" unless params[:tag].nil? || current_user.has_bookmark?(params[:tag])
+    @actions << "bookmark_tag" unless params[:tag].nil? || current_user.has_bookmark?(params[:tag])
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @traces }
+    end
+  end
+  
+  def search      
+    @tags = Trace.tag_counts_on :tags
+    @results = Trace.search(params[:q], { :per_page => 10, :page => params[:page] })
+    
+    @title = "Search |"
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @traces }
@@ -48,7 +59,7 @@ class HomeController < ApplicationController
   end
   
   def tag_list
-    @tags = Tag.find :all, :conditions => "name LIKE '%#{params[:tag]}%'"
+    @tags = Trace.tag_counts_on :tags, :conditions => "tags.name LIKE '%#{params[:tag]}%'", :limit => 10
     @list = []
     
     for t in @tags 
@@ -62,7 +73,7 @@ class HomeController < ApplicationController
   
   private
   def get_layout
-    logged_in? ? 'logged' : 'main'
+    logged_in?? 'logged' : 'main'
   end
   
   def populate_sidebar

@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title><%= @title %> uTrace</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <%= stylesheet_link_tag "reset-fonts-grids.css" %>
+	<%= stylesheet_link_tag "main"  %>
+    <% if controller.action_name == "map" || controller.action_name == "traces" || controller.action_name == "show" || controller.controller_name == "traces" -%>
+    <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA3nav32DtbW5MFnDtJpeZZBRopN2rk1zMLE79IKq4tyYku6rrDBStxV7sgGMzdav5bgwGsZXhQ1W5UA"></script>
+	<% end -%>
+	<%= yield :headers %>
+  </head>
+  <body>
+    <div id="doc3">
+      <%= render :partial => "home/header" -%>
+      <div id="bd"> 
+		<%= render :partial => "home/actions" -%>
+		<%= render :partial => "home/tips" -%>
+		<%= flash_messages -%>
+        <div id="yui-main">
+          <div class="yui-b">
+            <%= yield -%>
+          </div> 
+        </div> 
+      </div> 
+      <%= render :partial => "home/footer" -%>
+    </div>
+  </body>
+  <%= javascript_include_tag "jquery" %>
+  <%= yield :footers -%>
+  <%= javascript_include_tag "jquery-ui", "jquery.jparallax", "jquery.tag", "mapstraction", "application" %>
+</html>

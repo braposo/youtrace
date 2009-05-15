@@ -1,21 +1,28 @@
+<% content_for :headers do %>
+ 	<script type="text/javascript"><!--
+	clickHeatSite = 'youtrace';clickHeatGroup = 'edit_profile';clickHeatServer = 'http://localhost/clickheat/click.php';initClickHeat(); //-->
+	</script>
+<% end %>
 <div class="tabs">
 	<span class="back"><%= link_to "&larr; Back", :back %></span>
 	<span class="active">Edit Profile</span>
 </div>
 <div class="yui-g info main"> 
-	<% form_for(@user) do |f| %>
+	<% form_for(@user, :html => { :multipart => true }) do |f| %>
 	<div class="yui-u first"> 
 		<div class="box">
-			<div class="box-left"></div>
 	  		<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>Personal Details</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content">
 				<div class="photo_upload">
 					<%= photo_or_gravatar_for @user, {:size => 100} %>
-					<div class="aditional"><%= button_to "Upload new photo", :class => "button" %> or <%= link_to "delete", user_info_path(params[:id]) %> this one.</div>
+					<div class="aditional"><%= link_to "Delete photo", user_info_path(params[:id]) %></div>
 				</div>
 
 				<%= f.error_messages %>
@@ -25,6 +32,7 @@
 		  	  		<li><div>Location</div> <%= f.text_field :location_lat, :size => 10 -%><%= f.text_field :location_lon, :size => 10 -%></li>
 		  	  		<li><div>Birthday</div> <%= f.date_select :birthdate, :start_year => 1930, :end_year => Time.now.year - 5, :order => [:day, :month, :year] -%></li>
 		  	  		<li><div>Gender</div> <%= f.radio_button :gender, "Male" -%><%= f.label :gender_male, "Male" %> <%= f.radio_button :gender, "Female" -%><%= f.label :gender_female, "Female" %></li>
+					<li><div>Photo</div><%= f.file_field :photo %></li>
 		  	  	</ul>			
 				<div class="cf"><%= f.submit "Update", :class => "button" %> or <%= link_to "cancel", user_info_path(params[:id]) %></div>
 			</div>
@@ -33,22 +41,30 @@
 	<% end %>
 	<div class="yui-u">
 		<div class="box">
-			<div class="box-left"></div>
 			<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>Vehicle details</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content"></div>
 		</div>
 		<div class="box">
-			<div class="box-left"></div>
 			<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>GPS device</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content"></div>
 		</div>
 	</div>
+</div>
+<div class="box-shadow">
+	<div class="box-shadow-left"></div>
+	<div class="box-shadow-right"></div>
 </div>

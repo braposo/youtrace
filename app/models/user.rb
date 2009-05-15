@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
+  
+  acts_as_tagger
 
   has_many :groups_users
   has_many :groups, :through => :groups_users  
@@ -28,14 +30,38 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
-  before_create :make_activation_code 
+  #before_create :make_activation_code 
+  
+  IMG_NW = 100
+  IMG_NH = 100
+  
+  has_attached_file :photo,
+                    :styles => { :original => ["600x>", :png],
+                                 :thumb => ["#{IMG_NW}x#{IMG_NH}", :png] },
+                    :processors => [:jcropper],
+                    :url => "/images/users/:style/:id.:extension",
+                    :path => ":rails_root/public/images/users/:style/:id.:extension"
+       
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :name, :location_lat, :location_lon, :birthdate, :gender, :password, :password_confirmation, :login, :email
+  attr_accessible :name, :location_lat, :location_lon, :birthdate, :gender, :password, :photo, :crop_x, :crop_y, :crop_w, :crop_h, :password_confirmation, :login, :email
 
-  acts_as_tagger
+  def crop_str
+    if !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+      "-crop #{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"
+    else
+      ""
+    end
+  end
+  
+  def img_geometry(style = :original)
+    @geometry ||= {}
+    @geometry[style] ||= Paperclip::Geometry.from_file photo.path(style)
+  end
 
   # Activates the user in the database.
   def activate!
@@ -139,10 +165,10 @@ class User < ActiveRecord::Base
   end
   
   #Bookmark search page
-  def bookmark_search(tags)
+  def bookmark_tag(tags)
     @bookmark = Bookmark.find_or_create_by_name(tags)
     self.bookmarks << @bookmark
-    Event.create(:user_id => self.id, :format => "add_book", :text => "Added ##{tags} page to bookmars", :private => true)
+    Event.create(:user_id => self.id, :format => "add_book", :text => "Added ##{tags} page to bookmarks", :private => true)
   end
   
   #Request bookmark

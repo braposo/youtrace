@@ -1,5 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  include TagsHelper
+  
   FLASH_NOTICE_KEYS = [:error, :notice, :warning]
 
   def flash_messages
@@ -29,10 +31,11 @@ module ApplicationHelper
   end
   
   def photo_or_gravatar_for(user, options={})
-    default = {:class => 'photo', :size => '100', :alt => 'avatar'}
-    if !user.photo.nil?
+    default = {:class => 'photo-img', :size => '100', :alt => 'avatar'}
+    if user.photo.exists?
       options = default.merge(options)
-      "<img class=\"#{options[:class]}\" alt=\"#{options[:alt]}\" width=\"#{options[:size]}\" height=\"#{options[:size]}\" src=\"#{user.photo}\" />"
+      #"<img class=\"#{options[:class]}\" alt=\"#{options[:alt]}\" width=\"#{options[:size]}\" height=\"#{options[:size]}\" src=\"#{user.photo}\" />"
+      "<img class=\"#{options[:class]}\" alt=\"#{options[:alt]}\" src=\"#{user.photo.url(:thumb)}\" width=\"#{options[:size]}\" height=\"#{options[:size]}\"/>"
     else
       gravatar(user.email, options)
     end

@@ -1,6 +1,9 @@
-<div class="yui-g box">
-  	<div class="yui-u first">
-		<h1>About</h1>
-		<p>About content in here</p>
-	</div>
+<% if logged_in? -%>
+<div class="tabs">
+	<span class="back"><%= link_to "&larr; Back", :back %></span>
+	<span class="active">About</strong></span>
+</div>
+<% end %>
+<div class="<%= 'main' if logged_in? -%>">
+	<h1>About</h1>
 </div>

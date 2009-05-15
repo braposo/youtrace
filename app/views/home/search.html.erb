@@ -1,24 +1,19 @@
-<% content_for :headers do -%>
-	<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA3nav32DtbW5MFnDtJpeZZBRopN2rk1zMLE79IKq4tyYku6rrDBStxV7sgGMzdav5bgwGsZXhQ1W5UA"></script>
-<% end -%>
 <div class="tabs">
-	<span class="back"><%= link_to "&larr; Back", :back %></span>
-	<span class="active">Search: <strong><%= params[:tag] %></strong></span>
+	<span class="back"><%= link_to "&larr; Back", :back -%></span>
+	<span class="active">Search<% unless params[:q].nil? -%>: <strong><%= params[:q] -%></strong><% end -%></span>
 </div>
 <div class="yui-g main">
   <div class="yui-u first">
 	<div class="box">
-		<div class="box-left"></div>
   		<div class="box-header">	
-			<%= image_tag 'mark.png' %>
-			<h1>Traces: <%= params[:tag]%></h1>
+			<%= image_tag 'mark.png', :class => 'mark' %>
+			<h1>Traces</h1>
 		</div>
-		<div class="box-right"></div>
 		<div class="box-content">
-			<% if !@traces.empty? -%>
-				<h2>We've found <%= pluralize(@traces.size, 'trace') %> tagged with <strong><%= params[:tag] %></strong></h2>
+			<% if !@results.empty? -%>
+				<h2>We've found <%= pluralize(@results.size, 'trace') %></h2>
 				<div class="item-list">
-				<% @traces.each do |t| -%>
+				<% @results.each do |t| -%>
 				   	<%= render :partial => 'traces/trace_item', :locals => { :t => t, :s => 'user'}%>
 				<% end -%>
 				</div>
@@ -27,37 +22,23 @@
 			<% end -%>
 		</div>
 	</div>
-	<div class="box">
-		<div class="box-left"></div>
-  		<div class="box-header">	
-			<%= image_tag 'mark.png' %>
-			<h1>Users: <%= params[:tag]%></h1>
-		</div>
-		<div class="box-right"></div>
-		<div class="box-content">
-			<% if !@users.empty? -%>
-				<h2>We've found <%= pluralize(@users.size, 'user') %> tagged with <strong><%= params[:tag] %></strong></h2>
-				<div class="item-list">
-				<% @users.each do |t| -%>
-				   	<%= render :partial => 'traces/trace_item', :locals => { :t => t, :s => 'user'}%>
-				<% end -%>
-				</div>
-			<% else -%>
-				<h2>No users were found.</h2>
-			<% end -%>
-		</div>
-	</div>
   </div>
   <div class="yui-u">
 	<div class="box">
-		<div class="box-left"></div>
   		<div class="box-header">	
-			<%= image_tag 'mark.png' %>
-			<h1>Map: <%= params[:tag]%></h1>
+			<%= image_tag 'mark.png', :class => 'mark' %>
+			<h1>Popular Tags</h1>
 		</div>
-		<div class="box-right"></div>
-		<div class="box-content"><div id='map'></div></div>
+		<div class="box-content">
+			<% tag_cloud(@tags, %w(tag1 tag2 tag3 tag4)) do |tag, css_class| %>
+			    <%= link_to tag.name, tag_path(tag.name), :class => "tag " + css_class %>
+			<% end %>
+		</div>
 	</div>
     
   </div>
+</div>
+<div class="box-shadow">
+	<div class="box-shadow-left"></div>
+	<div class="box-shadow-right"></div>
 </div>

@@ -1,3 +1,8 @@
+<% content_for :headers do %>
+ 	<script type="text/javascript"><!--
+	clickHeatSite = 'youtrace';clickHeatGroup = 'own_profile';clickHeatServer = 'http://localhost/clickheat/click.php';initClickHeat(); //-->
+	</script>
+<% end %>
 <div class="tabs">
 	<span class="back"><%= link_to "&larr; Back", :back %></span>
 	<span class="active">Profile</span>
@@ -5,12 +10,14 @@
 <div class="yui-g info main">
   	<div class="yui-u first">
 		<div class="box">
-			<div class="box-left"></div>
 	  		<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>Details</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content">			
 		  	  	<ul class="details">
 		  	  		<li><div>Name</div> <%= @user.name.empty? ? 'n/a' : @user.name -%></li>
@@ -26,22 +33,30 @@
 	</div>
 	<div class="yui-u">
 		<div class="box">
-			<div class="box-left"></div>
 	  		<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>Vehicle details</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content"></div>
 		</div>
 		<div class="box">
-			<div class="box-left"></div>
 	  		<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>GPS device</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content"></div>
 		</div>
 	</div>
+</div>
+<div class="box-shadow">
+	<div class="box-shadow-left"></div>
+	<div class="box-shadow-right"></div>
 </div>

@@ -1,0 +1,77 @@
+<% content_for :footers do %>
+<script language="Javascript">
+
+jQuery(window).load(function(){
+
+	$(function() {
+	  $('#cropbox').Jcrop({
+	      onSelect: showPreview,
+	      onChange: showPreview,
+		  setSelect:   [ 0, 0, 100, 100 ],
+	      aspectRatio: <%= User::IMG_NW -%>/<%= User::IMG_NH -%>
+	    });
+	});
+
+});
+
+function showPreview(coords)
+{
+	var rx = <%= User::IMG_NW %> / coords.w;
+	var ry = <%= User::IMG_NH %> / coords.h;
+
+	$('#preview').css({
+		width: Math.round(rx * <%= @user.img_geometry(:original).width.to_i %>) + 'px',
+		height: Math.round(ry * <%= @user.img_geometry(:original).height.to_i %>) + 'px',
+		marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+		marginTop: '-' + Math.round(ry * coords.y) + 'px'
+	});
+	
+	$('#crop_x').val(Math.round(coords.x));
+	$('#crop_y').val(Math.round(coords.y));
+	$('#crop_w').val(Math.round(coords.w));
+	$('#crop_h').val(Math.round(coords.h));
+}
+
+</script>
+<% end -%>
+<div class="tabs">
+	<span class="active">Edit Photo</span>
+</div>
+<div class="yui-ge main"> 
+	<div class="yui-u first">
+		<div class="box">
+			<div class="box-header">	
+				<%= image_tag 'mark.png', :class => 'mark' %>
+				<h1>Original Photo</h1>
+			</div>
+			<div class="box-content">
+				<%= image_tag @user.photo.url(:original), :id => 'cropbox' %>
+				<% form_for :user, :url => crop_user_path(@user) do |f| %>
+					<%= f.hidden_field :crop_x, :id => 'crop_x' %>
+					  <%= f.hidden_field :crop_y, :id => 'crop_y' %>
+					  <%= f.hidden_field :crop_w, :id => 'crop_w' %>
+					  <%= f.hidden_field :crop_h, :id => 'crop_h' %>
+				  <%= f.submit "Crop photo", :class => 'button' %> 
+				<% end %>
+			</div>
+		</div>
+	</div>
+	
+	<div class="yui-u">
+		<div class="box">
+			<div class="box-header">	
+				<%= image_tag 'mark.png', :class => 'mark' %>
+				<h1>Avatar Preview</h1>
+			</div>
+			<div class="box-content">
+				<div style="width:<%= User::IMG_NW %>px;height:<%= User::IMG_NH %>px;overflow:hidden;padding: 1px; border: 5px solid #D5D8DD;">
+					<%= image_tag @user.photo.url(:original), :id => 'preview' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="box-shadow">
+	<div class="box-shadow-left"></div>
+	<div class="box-shadow-right"></div>
+</div>

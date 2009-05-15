@@ -20,7 +20,7 @@
 		<% elsif s == 'grp_admin' %>	
 			(<%= link_to 'delete', group_leave_path(params[:id],:user_id => u), :confirm => 'Are you sure?' %>)	
 		<% else %>
-			<%= time_ago_in_words u.created_at %>
+			
 		<% end %>
 	</div>
 </div>

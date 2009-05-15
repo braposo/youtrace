@@ -1,3 +1,8 @@
+<% content_for :headers do %>
+ 	<script type="text/javascript"><!--
+	clickHeatSite = 'youtrace';clickHeatGroup = 'add_trace';clickHeatServer = 'http://localhost/clickheat/click.php';initClickHeat(); //-->
+	</script>
+<% end %>
 <div class="tabs">
 	<span class="back"><%= link_to "&larr; Back", :back %></span>
 	<span class="active">Add Trace</span>
@@ -5,12 +10,14 @@
 <div class="yui-g main">
 	<div class="yui-u first">
 		<div class="box">
-			<div class="box-left"></div>
 	  		<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>Trace Details</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content">
 				<h2>When adding a new trace it will be instantly available for visualization, but remain temporary until processed by <strong>uTrace</strong> engine</h2>
 				<% form_for(@trace, :html => { :multipart => true }) do |f| %>
@@ -51,7 +58,6 @@
 						<h2>Please <%= link_to "associate", edit_user_path(@user) -%> a GPS device to this account</h2>
 					<% end %>
 					<%= f.hidden_field :user_id, :value => @user.id %>
-
 				    <%= f.submit "Save trace", :class => "button fl" %> <div class="button fl" id="preview">Preview »</div>
 					
 					<div class="cf"></div>
@@ -61,13 +67,19 @@
 	</div> 
 	<div class="yui-u">
 		<div class="box">
-			<div class="box-left"></div>
 	  		<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>Preview</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content"><div id='map'></div></div>
 		</div>
 	</div>
+</div>
+<div class="box-shadow">
+	<div class="box-shadow-left"></div>
+	<div class="box-shadow-right"></div>
 </div>

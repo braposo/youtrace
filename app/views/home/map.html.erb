@@ -1,9 +1,34 @@
-<div class="yui-ge box">
+<% if logged_in? -%>
+<div class="tabs">
+	<span class="back"><%= link_to "&larr; Back", :back %></span>
+	<span class="active">World Map</strong></span>
+</div>
+<% end %>
+<div class="yui-ge <%= 'main' if logged_in? -%>">
   	<div class="yui-u first">
-		<div id='map'></div>
+		<div class="map-box">
+			<div id='map'></div>
+		</div>
+		<div class="box-shadow">
+			<div class="box-shadow-left"></div>
+			<div class="box-shadow-right"></div>
+		</div>
 	</div>
-	<div class="yui-u">
-		<h1>View Options</h1>
-		<h1>Export</h1>
+	<div class="yui-u main">
+		<div class="box">
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png', :class => 'mark' %>
+				<h1>View Options</h1>
+			</div>
+			<div class="box-content"></div>
+		</div>
+		<div class="box">
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png', :class => 'mark' %>
+				<h1>Export</h1>
+			</div>
+			<div class="box-content"></div>
+		</div>
+		
 	</div>
 </div>

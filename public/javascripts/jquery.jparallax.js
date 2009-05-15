@@ -190,11 +190,11 @@ function moveLayers(layer, xratio, yratio) {
 	  }
 	  if (layer[i].yparallax) {
       if (layer[i].ytravelpx) {
-        cssObject.marginTop = 0; //ypos * -1 + 'px';
+        cssObject.marginTop = ypos * -1 + 'px';
       }
       else {
         cssObject.top = ypos * 100 + '%';
-        cssObject.marginTop = 0; //ypos * layer[i].height * -1 + 'px';
+        cssObject.marginTop = ypos * layer[i].height * -1 + 'px';
       }
     }
     layer[i].element.css(cssObject);

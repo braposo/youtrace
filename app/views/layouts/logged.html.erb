@@ -5,11 +5,11 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title><%= @title %> uTrace</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <%= stylesheet_link_tag "reset-fonts-grids.css" %>
-	<%= stylesheet_link_tag "main"  %>
+    <%= stylesheet_link_tag "reset-fonts-grids", "jquery.Jcrop", "main" %>
     <% if controller.action_name == "map" || controller.action_name == "traces" || controller.action_name == "show" || controller.controller_name == "traces" -%>
     <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA3nav32DtbW5MFnDtJpeZZBRopN2rk1zMLE79IKq4tyYku6rrDBStxV7sgGMzdav5bgwGsZXhQ1W5UA"></script>
 	<% end -%>
+	<% #<script type="text/javascript" src="http://localhost/clickheat/js/clickheat.js"></script> %>
 	<%= yield :headers %>
   </head>
   <body>
@@ -31,7 +31,7 @@
       <%= render :partial => "home/footer" -%>
     </div>
   </body>
-  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "jquery", "jquery.Jcrop" %>
   <%= yield :footers -%>
-  <%= javascript_include_tag "jquery-ui", "jquery.jparallax", "jquery.tag", "jquery.hotkeys", "mapstraction", "application" %>
+  <%= javascript_include_tag "jquery-ui", "jquery.jparallax", "jquery.tag", "jquery.hotkeys", "jquery.qtip", "mapstraction", "application" %>
 </html>

@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   #User navigation
-  map.resources :users do |users|
+  map.resources :users, :member => { :crop => :post } do |users|
     users.home 'home', :controller => 'users', :action => 'home', :path_prefix => '/users/:id'
     users.bookmarks 'bookmarks', :controller => 'users', :action => 'bookmarks', :path_prefix => '/users/:id'
     users.traces 'traces', :controller => 'users', :action => 'traces', :path_prefix => '/users/:id'
@@ -24,8 +24,8 @@ ActionController::Routing::Routes.draw do |map|
     users.delete 'delete/:sub_id', :controller => 'users', :action => 'delete_profile', :path_prefix => '/users/:id'
     users.authorize 'authorize/:sub_id', :controller => 'users', :action => 'authorize', :path_prefix => '/users/:id'
     users.pause 'pause/:sub_id', :controller => 'users', :action => 'pause', :path_prefix => '/users/:id'
-    users.bookmark_search 'bookmark_search/:tags', :controller => 'users', :action => 'bookmark_search', :path_prefix => '/users/:id'
-    users.delete_search 'delete_search/:tags', :controller => 'users', :action => 'delete_search', :path_prefix => '/users/:id'
+    users.bookmark_tag 'bookmark_tag/:tags', :controller => 'users', :action => 'bookmark_tag', :path_prefix => '/users/:id'
+    users.delete_tag 'delete_tag/:tags', :controller => 'users', :action => 'delete_tag', :path_prefix => '/users/:id'
   end
   
   map.root :controller => "home"
@@ -35,9 +35,8 @@ ActionController::Routing::Routes.draw do |map|
   map.social '/social', :controller => 'home', :action => 'social'
   map.howto '/howto', :controller => 'home', :action => 'howto'
   map.about '/about', :controller => 'home', :action => 'about'
-  map.named_search '/search/:tag', :controller => 'home', :action => 'search'
+  map.tag '/tag/:tag', :controller => 'home', :action => 'tag'
   map.tag_list '/tag_list', :controller => 'home', :action => 'tag_list'
-  
   map.search '/search', :controller => 'home', :action => 'search'
   
   #User authentication

@@ -1,12 +1,12 @@
 <div class="item <%= css %>">
 	<%= image_tag 'groups/default.png', :size => '40x40', :class => 'fl'  %>
 	<div class="fl">
-		<%= link_to b.name, named_search_path(b.name), :class => 'name' -%>
+		<%= link_to b.name, tag_path(b.name), :class => 'name' -%>
 		<small>Tag search page</small>
 	</div>
 	<div class="item-actions fr">
 		<% if s == 'sub' -%>
-			<%= link_to(image_tag('icons/mini/delete.gif', :size => "10x10"), user_delete_search_path(:tags => b.name), :title => "Remove page", :confirm => "Remove this page?", :method => :delete) %>
+			<%= link_to(image_tag('icons/mini/delete.gif', :size => "10x10"), user_delete_tag_path(:tags => b.name), :title => "Remove tag page", :confirm => "Remove this page?", :method => :delete) %>
 		<% end -%>
 	</div>
 </div>

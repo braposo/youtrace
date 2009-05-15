@@ -1,3 +1,8 @@
+<% content_for :headers do %>
+ 	<script type="text/javascript"><!--
+	clickHeatSite = 'youtrace';clickHeatGroup = 'bookmarks';clickHeatServer = 'http://localhost/clickheat/click.php';initClickHeat(); //-->
+	</script>
+<% end %>
 <div class="tabs">
 	<span class="back"><%= link_to "&larr; Back", :back %></span>
 	<span class="active">Bookmarks</span>
@@ -5,12 +10,15 @@
 <div class="yui-gc main">
   	<div class="yui-u first">
 		<div class="box">
-			<div class="box-left"></div>
 	  		<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>Bookmarks</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/layout.png', :size => '16x16', :class => 'layout', :tooltip => 'Switch view'  %>
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content">
 				<% if !@profiles.empty? -%>
 					<h2>You have <strong><%= @profiles.size %></strong> profiles bookmarked. Why don't you <%= link_to "extend", social_path %> your network?</h2>
@@ -34,12 +42,14 @@
 	<div class="yui-u"> 
 		<% if ((!@pending_reqs.empty? || !@pending_subs.empty?) && is_own?(params[:id])) -%>
 			<div class="box">
-				<div class="box-left"></div>
 	  			<div class="box-header">	
-					<%= image_tag 'mark.png' %>
+					<%= image_tag 'mark.png', :class => 'mark' %>
 					<h1>Requests</h1>
+					<div class="box-options">
+						<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+						<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+					</div>
 				</div>
-				<div class="box-right"></div>
 				<div class="box-content">
 					<h2>You have <strong><%= @pending_reqs.size + @pending_subs.size %></strong> pending requests.</h2>
 					<div class="profile-list">
@@ -55,16 +65,19 @@
 			</div>
 		<% end -%>
 		<div class="box">
-			<div class="box-left"></div>
 	  		<div class="box-header">	
-				<%= image_tag 'mark.png' %>
+				<%= image_tag 'mark.png', :class => 'mark' %>
 				<h1>Search </h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
-			<div class="box-right"></div>
 			<div class="box-content"></div>
 		</div>
 	</div>
 </div>
-
-
-
+<div class="box-shadow">
+	<div class="box-shadow-left"></div>
+	<div class="box-shadow-right"></div>
+</div>

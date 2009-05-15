@@ -15,6 +15,18 @@ class Trace < ActiveRecord::Base
   
   acts_as_taggable_on :tags
   
+  def self.search(query = '', options = {})
+    find :all do
+      paginate options
+      any do
+        name.contains? query
+        description.contains? query
+        tags.name.contains? query
+      end
+      order_by created_at.desc
+    end
+  end
+  
   private
   def generate_events
     if self.group_ids.empty?

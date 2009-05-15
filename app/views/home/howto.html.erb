@@ -1,6 +1,17 @@
-<div class="yui-ge box">
+<% if logged_in? -%>
+<div class="tabs">
+	<span class="back"><%= link_to "&larr; Back", :back %></span>
+	<span class="active">How to</strong></span>
+</div>
+<% end %>
+<div class="<%= 'main' if logged_in? -%>">
   	<div class="yui-u first">
-		<h1>How to</h1>
-		<p>How to content in here</p>
+		<div class="box">
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png', :class => 'mark' %>
+				<h1>How to</h1>
+			</div>
+			<div class="box-content"></div>
+		</div>
 	</div>
 </div>

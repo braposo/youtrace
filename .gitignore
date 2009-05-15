@@ -6,3 +6,4 @@ db/*.sqlite3
 nbproject/*
 config/initializers/site_keys.rb
 coverage/*
+public/system/files/*

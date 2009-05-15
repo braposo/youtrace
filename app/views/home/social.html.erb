@@ -1,21 +1,48 @@
-<div class="yui-g box">
+<% content_for :headers do %>
+ 	<script type="text/javascript"><!--
+	clickHeatSite = 'youtrace';clickHeatGroup = 'social';clickHeatServer = 'http://localhost/clickheat/click.php';initClickHeat(); //-->
+	</script>
+<% end %>
+<% if logged_in? -%>
+<div class="tabs">
+	<span class="back"><%= link_to "&larr; Back", :back %></span>
+	<span class="active">Social</strong></span>
+</div>
+<% end %>
+<div class="yui-g <%= 'main' if logged_in? -%>">
   	<div class="yui-u first">
-		<h1>Latest Users</h1>
-		<ul>
-		  <% @users.each do |u| %>
-			<% css = cycle("fl", "fr") -%>
-		    <%= render :partial => 'users/user_item', :locals => { :u => u, :s => 'default', :css => css }%>
-		  <% end %>
-		</ul>
+		<div class="box">
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png', :class => 'mark' %>
+				<h1>Latest Users</h1>
+			</div>
+			<div class="box-content">
+				<div class="profile-list">
+				  <% @users.each do |u| %>
+					<% css = cycle("fl", "fr") -%>
+				    <%= render :partial => 'users/user_item', :locals => { :u => u, :s => 'default', :css => css }%>
+				  <% end %>
+				</div>
+				<div class="cf"></div>
+			</div>
+		</div>
 	</div>
 	<div class="yui-u">
-		<h1>Latest Groups</h1>
-		<ul>
-		  <% @groups.each do |g| %>
-			<% css = cycle("fl", "fr") -%>
-		    <%= render :partial => 'groups/group_item', :locals => { :g => g, :s => 'default', :css => css }%>
-		  <% end %>
-		</ul>
+		<div class="box">
+	  		<div class="box-header">	
+				<%= image_tag 'mark.png', :class => 'mark' %>
+				<h1>Latest Tags</h1>
+			</div>
+			<div class="box-content">
+				<div class="profile-list">
+				  <% @search.each do |p| %>
+					<% css = cycle("fl", "fr") -%>
+				    <%= render :partial => 'users/page_item', :locals => { :b => p, :s => 'default', :css => css }%>
+				  <% end %>
+				</div>
+				<div class="cf"></div>
+			</div>
+		</div>
 	</div>
 </div>
 
