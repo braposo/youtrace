@@ -35,7 +35,7 @@ class HomeController < ApplicationController
   end
   
   def tag      
-    @traces = Trace.tagged_with params[:tag], :on => :tags
+    @traces = Trace.find_tagged_with params[:tag], :on => :tags
     @users = []
     
     @title = params[:tag] +" | Tag |"
@@ -43,7 +43,6 @@ class HomeController < ApplicationController
     @actions << "bookmark_tag" unless params[:tag].nil? || current_user.has_bookmark?(params[:tag])
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @traces }
     end
   end
   

@@ -62,7 +62,7 @@ div.button:hover, a.button:hover { background: #989DA4; color: #D5D8DD;}
 #hd img.logo { margin-left: 50px; margin-top: 20px;}
 
 /* Header > Navbar */
-#navbar { position:relative; overflow:visible; width: 600px; height: 70px; -webkit-padding-start: 0; margin-top: 10px;}
+#navbar { position:relative; overflow:visible; width: 600px; height: 70px; -webkit-padding-start: 0; margin-top: 40px;}
 li.navbar-item { display: inline; font-size: 20px; font-family: Georgia,'Times New Roman',times,serif; margin-right: 30px;}
 li.navbar-item a.home { background: transparent url('/images/navbar/home.png') no-repeat 0 0; width: 96px; height: 60px; display:block; position:absolute; top: -10px; margin-left: 70px;}
 li.navbar-item a.home:hover { background-position: 0 -63px;}
@@ -280,8 +280,8 @@ a.tag3 { font-size: 1.4em; }
 a.tag4 { font-size: 1.6em; }
 
 .section { margin: 30px; border-bottom: 5px solid #efefef; margin-top: 25px; padding-bottom: 25px;}
-.section img { margin: 10px 0px;}
-.section .title { font-size: 3.5em; color: #444; margin-bottom: 10px;}
+.section img { margin: 10px 0px; width: 100%; max-width: 368px;}
+.section .title { font-size: 3.5em; color: #444; margin-bottom: 10px; font-weight: 300;}
 .section .text { line-height: 1.5em; color: #616161;}
 
 /* Helpers */

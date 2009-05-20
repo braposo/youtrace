@@ -53,17 +53,19 @@ function gmaps_init() {
 }
 
 function mapstraction_init(){
-	var mapstraction = new Mapstraction('map','microsoft');
+	var mapstraction = new Mapstraction('map','yahoo');
 
-	      var myPoint = new LatLonPoint(41.875696,-87.624207);
+	      var myPoint = new LatLonPoint(38.589638,-9.051619);
 	      // display the map centered on a latitude and longitude (Google zoom levels)
 	      mapstraction.setCenterAndZoom(myPoint, 11);
-	      mapstraction.addOverlay("http://mapgadgets.googlepages.com/cta.kml")
+	      mapstraction.addOverlay("http://student.dei.uc.pt/~braposo/teste.kml")
 		mapstraction.addControls({
 		    pan: false, 
 		    zoom: false,
 		    map_type: false 
 		});
+		
+		
 }
 
 $(document).ready(function() {  
@@ -75,7 +77,7 @@ $(document).ready(function() {
     });  
 
 	//Efeito do menu navegação
-	jQuery('#navbar').jparallax({ },{xtravel: '50px',ytravel: '0px'}, {xtravel: '80px',ytravel: '0px'}, {xtravel: '100px',ytravel: '0px'});
+	//jQuery('#navbar').jparallax({ },{xtravel: '50px',ytravel: '0px'}, {xtravel: '80px',ytravel: '0px'}, {xtravel: '100px',ytravel: '0px'});
 	
 	/* MODAL DO LOGIN */
 	$('a.modal').click(function (e) {
@@ -85,7 +87,7 @@ $(document).ready(function() {
 			// create a modal dialog with the data
 			$('.login-content',data).modal({
 				close: false,
-				position: ["15%",],
+				position: ["5%",],
 				overlayId: 'login-overlay',
 				containerId: 'login-box',
 				onShow: login.show,
@@ -103,8 +105,8 @@ $(document).ready(function() {
  
 	
 	if ($('#map').length) { 
-		google.setOnLoadCallback(gmaps_init); 
-		//mapstraction_init();
+		//google.setOnLoadCallback(gmaps_init); 
+		mapstraction_init();
 	}
 	
 	/* COLLAPSE */

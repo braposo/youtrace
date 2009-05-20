@@ -8,64 +8,64 @@
 	<span class="active">Dashboard</span>
 </div>
 <div class="yui-g main">
-  <div class="yui-u first">
-	<div class="box">
-  		<div class="box-header">	
-			<%= image_tag 'mark.png', :class => 'mark' %>
-			<h1>Latest Activity</h1>
-			<div class="box-options">
-				<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
-				<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
-			</div>
-		</div>
-		<div class="box-content">
-  	   		<% form_for Event.new, :html => {:class => 'message-form'} do |f| %>
-  	   			<%= f.error_messages %>
-  	   		    <%= f.text_area :text, :size => '70x3' %>
-  	   			<%= f.submit "Change Status", :class => 'button' %>	    
-  	   		    <%= f.check_box :private, :class => 'bottom' %>
-	   			<%= f.label :private, "Keep this private" %> 
-  	   		<% end %>
-       		
-  	   		<% if !@events.empty? -%>
-				<div id="events-list">
-  	   				<% @events.each do |e| -%>
-  	   				   	<%= render :partial => 'events/message_item', :locals => { :e => e } %>
-  	   				<% end -%>
-					
-					<%= will_paginate @events, :page_links => false, :previous_label => "«", :next_label => "»" %>
+	<div class="actions"></div>
+	<div class="yui-u first">
+		<div class="box">
+			<div class="box-header">	
+				<%= image_tag 'mark.png', :class => 'mark' %>
+				<h1>Latest Activity</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
 				</div>
-  	   		<% else -%>
-  	   			No activity.
-  	   		<% end -%>
-		</div>
-	</div>
-  </div>
-  <div class="yui-u">
-	<div class="box">
-  		<div class="box-header">	
-			<%= image_tag 'mark.png', :class => 'mark' %>
-			<h1>Overview</h1>
-			<div class="box-options">
-				<%= image_tag 'icons/layout.png', :size => '16x16', :class => 'layout', :tooltip => 'Switch view'  %>
-				<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
-				<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+			</div>
+			<div class="box-content">
+				<% form_for Event.new, :html => {:class => 'message-form'} do |f| %>
+					<%= f.error_messages %>
+					<%= f.text_area :text, :size => '70x3' %>
+					<%= f.submit "Change Status", :class => 'button' %>	    
+					<%= f.check_box :private, :class => 'bottom' %>
+					<%= f.label :private, "Keep this private" %> 
+				<% end %>
+
+				<% if !@events.empty? -%>
+					<div id="events-list">
+						<% @events.each do |e| -%>
+							<%= render :partial => 'events/message_item', :locals => { :e => e } %>
+						<% end -%>
+						<%= will_paginate @events, :page_links => false, :previous_label => "«", :next_label => "»" %>
+					</div>
+				<% else -%>
+					No activity.
+				<% end -%>
 			</div>
 		</div>
-		<div class="box-content"></div>
 	</div>
-	<div class="box">
-  		<div class="box-header">	
-			<%= image_tag 'mark.png', :class => 'mark' %>
-			<h1>Achievements</h1>
-			<div class="box-options">
-				<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
-				<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+	<div class="yui-u">
+		<div class="box">
+			<div class="box-header">	
+				<%= image_tag 'mark.png', :class => 'mark' %>
+				<h1>Overview</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/layout.png', :size => '16x16', :class => 'layout', :tooltip => 'Switch view'  %>
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
 			</div>
+			<div class="box-content"></div>
 		</div>
-		<div class="box-content"></div>
+		<div class="box">
+			<div class="box-header">	
+				<%= image_tag 'mark.png', :class => 'mark' %>
+				<h1>Achievements</h1>
+				<div class="box-options">
+					<%= image_tag 'icons/move.png', :size => '16x16', :class => 'move', :tooltip => 'Move box'  %>
+					<%= image_tag 'icons/collapse.png', :size => '16x16', :class => 'collapse', :tooltip => 'Collapse/Expand'  %>
+				</div>
+			</div>
+			<div class="box-content"></div>
+		</div>
 	</div>
-  </div>
 </div>
 <div class="box-shadow">
 	<div class="box-shadow-left"></div>

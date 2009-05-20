@@ -40,7 +40,7 @@ $(document).ready(function() {
     });  
 
 	//Efeito do menu navegação
-	jQuery('#navbar').jparallax({},{xtravel: '50px',ytravel: '0px'}, {xtravel: '80px',ytravel: '0px'}, {xtravel: '100px',ytravel: '0px'});
+	//jQuery('#navbar').jparallax({},{xtravel: '50px',ytravel: '0px'}, {xtravel: '80px',ytravel: '0px'}, {xtravel: '100px',ytravel: '0px'});
 	
 	/* MODAL DO LOGIN */
 	$('a.modal').click(function (e) {
@@ -50,7 +50,7 @@ $(document).ready(function() {
 			// create a modal dialog with the data
 			$('.login-content',data).modal({
 				close: false,
-				position: ["15%",],
+				position: ["5%",],
 				overlayId: 'login-overlay',
 				containerId: 'login-box',
 				onShow: login.show,
